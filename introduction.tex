@@ -35,27 +35,27 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
         As all viruses mutate, so does \acrshort{sarscov2}. Viruses reproduce (or make copies of themselves) inside host cells and occasionally mutate, e.g., changes appear in the string of 30,000 bases that make up the \acrshort{sarscov2} genome. These mutations may lead to changes in the amino acids that make up a protein, which would alter its structure. A virus that has been mutated may weaken or die out as a result of these changes. In rare cases, mutations can improve the virus's ability to cause disease, spread, or evade host immunity. If the mutations spread with virus replication and invade the virus population, the corresponding virus can become a "variant" of its wild-type (original) by accumulating advantageous mutations, making it a better infector, disease-causing agent, evading the immune system, or spreading within a population \cite{variants}. With over 485 million documented infections during the past two years, and probably many more undocumented, there have been an incredible number of mutation opportunities.  Nevertheless, most of them do not cause global surges and do not pose any more significant threat than existing variants.
         
         In the first year of the Coronavirus pandemic, the virus did not change much. Approximately one or two mutations were picked up by \acrshort{sarscov2} each month. The phylogenetic tree had only one main trunk and a few tiny branches (\cref{fig:intro:corona-timeline}). Pandemic course changed in 2020.
-        \begin{figure}[h]
+        \begin{figure}[ht!]
         	\centering
-        	\includegraphics[width=1\textwidth]{figures/intro/corona-timeline.png}
+        	\includegraphics[width=0.8\textwidth]{figures/intro/corona-timeline.png}
         	\captionof{figure}{Schematic representation of the major evolutionary events that gave rise to \acrshort{sarscov2} variants in sequential order (simplified, cf. \cite{jacob2021}). }
         	\label{fig:intro:corona-timeline}
         \end{figure}
         \subsubsection{SARS-CoV-2 variants}
         From approximately summer of 2020 on, \acrshort{sarscov2}'s family tree grew increasingly complex. The main trunk sprouted branches for a number of variants. Gamma, lambda, and mu variants appeared (although none spread worldwide). The tree's canopy was formed by dozens of branches (\cref{fig:intro:nextstrain}).
-        \begin{figure}[h]
+        \begin{figure}[ht!]
         	\centering
-        	\includegraphics[width=0.9\textwidth]{figures/intro/nextstrain-global.png}
+        	\includegraphics[width=0.8\textwidth]{figures/intro/nextstrain-global.png}
         	\captionof{figure}{\acrshort{sarscov2} phylogenetic tree with a timeline from Nextstrain project labeled by clades (image from \cite{nextstrain2}). }
         	\label{fig:intro:nextstrain}
         \end{figure}
         Researchers track the \acrshort{sarscov2} variants with mutations that are clinically or epidemiologically significant. Detecting variants in a virus usually requires sequencing its complete genome. By sequencing a representative sample of viral specimens in a population, one can determine if new variants are emerging or existing ones are spreading. In particular, variants with the potential or demonstrated ability to be more transmissible, immune evasive, or virulent are closely monitored. These are designated as \acrfull{vois} or \acrfull{vocs}.
         
-        On-going pandemic control efforts are challenged by the emergence of \acrshort{sarscov2} variants with greater transmission potential and/or immunity circumvention. In 2020, researchers from South Africa and Great Britain identified two variants of concern \cite{voc2022}: alpha and beta \cite{planas2021}. The virus changed rapidly due to these two variants. According to estimates, each variant had around 20 mutations, compared to a few mutations in previous variants. As a result, they became \acrshort{vocs} instead of \acrshort{vois}.
+        On-going pandemic control efforts are challenged by the emergence of \acrshort{sarscov2} variants with greater transmission potential and/or immunity circumvention. In 2020, researchers from South Africa and Great Britain identified two \acrlong{vocs} \cite{voc2022}: alpha and beta \cite{planas2021}. The virus changed rapidly due to these two variants. According to estimates, each variant had around 20 mutations, compared to a few mutations in previous variants. As a result, they became \acrshort{vocs} instead of \acrshort{vois}.
         
         The Delta (B.1.617.2) variant was dominant worldwide between June and December 2021 (\cref{fig:intro:voc-growth}), it has 13 mutations and over 200 known sublineages. Compared to the original virus sequenced in January 2020, the Omicron variant was found to have 50 mutations, when sequenced for the first time in November 2021, and has more than 300 sublineages by now, according to Pango Lineages database \url{https://cov-lineages.org/}. In the middle of 2020, once Omicron's lineage diverged, it became phylogenetically distinct from other known \acrshort{vocs} or \acrshort{vois} \cite{otoole2021}. However, the Omicron variant reached its peak worldwide in January 2022 and continues to be prevalent compared to other variants of concern. 
         
-        \begin{figure}[h]
+        \begin{figure}[ht!]
             \centering
         	\includegraphics[width=1\textwidth]{figures/intro/voc-growth.png}
         	\captionof{figure}{Chart of global \acrshort{sarscov2} \acrshort{voc} growth from 4 October, 2020, to 21 March, 2022. Graph represents proportions of \acrshort{sarscov2} genome sequences on GISAID by sample collection week per \acrshort{voc} (image from \cite{variants}). }
@@ -142,7 +142,7 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
         
         \Cref{fig:intro:metatr-process} shows a simplified schematic representation of the common process for SARS-CoV-2 RNA extraction with metatranscriptomics approach.
         
-        \begin{figure}[h]
+        \begin{figure}[ht!]
         	\centering
             \includegraphics[width=0.5\textwidth]{figures/intro/metatranscriptomics-process.png}
             \captionof{figure}{Schematic representation of the common process for \acrshort{sarscov2} RNA extraction with metatranscriptomics approach (simplified, cf. \cite{chiara2020}). }
@@ -256,7 +256,7 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
         
         Interpreting and visualizing the Stage 1 outputs are the focus of Stage 2. Additional reporting workflow is developed to analyze outputs of Stage 1, which generates tabular and \acrshort{json} files. These files serve as input for analysis based on two software systems, Jupyter, and ObservableHQ, for visualizing results.
         
-        \begin{figure}[h]
+        \begin{figure}[ht!]
         	\centering
             \includegraphics[width=0.7\textwidth]{figures/intro/galaxy-analysis.jpg}
             \captionof{figure}{Analysis flow in the analysis system suggested by GalaxyProject (image from \cite{maier2021b}). }
@@ -304,7 +304,7 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
         Likewise, wastewater surveillance is more economical than clinical testing since it can screen large numbers of people with just a few samples and does not need clinician involvement.
         
         Another advantage is that by using the wastewater surveillance of SARS-CoV-2 method, data can be collected from people who do not have access to healthcare or in places, so-called “sequencing deserts”, around the world where sequencing capacity is limited. Among such "sequencing deserts'', new, potentially dangerous variants, like Omicron, are able to emerge and spread undetected. There is a risk that new variants or subvariants will emerge until representative samples are sufficiently sequenced. Wastewater surveillance is one of the opportunities for covering 'sequencing deserts' for surveillance of variants of SARS-CoV-2. As a result, a very close to a real-time overview of disease prevalence could be provided since it was proved \cite{zhang2021} successful enough in revealing infection dynamics earlier than clinical testing. In \cref{fig:intro:ww-process}, the schematic diagram shows the process of detecting viruses by wastewater surveillance against clinical surveillance. 
-        \begin{figure}[h]
+        \begin{figure}[ht!]
         	\centering
             \includegraphics[width=1\textwidth]{figures/intro/ww-process-v2.png}
             \captionof{figure}{Schematic diagram shows the process of detecting viruses by wastewater surveillance against clinical surveillance.}

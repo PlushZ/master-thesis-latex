@@ -9,11 +9,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{State-of-the-art}
 
-From the beginning of the COVID-19 pandemic, several approaches have been presented to determine SARS-CoV-2 in wastewater samples. An overview of existing tools and pipelines will be given in \autoref{sec:prior:methods}. Some tools and pipelines aiming to detect SARS-CoV-2 lineages and their abundance in wastewater samples will be considered. More specifically, \autoref{sec:prior:methods:tools} will show individual tools that require data preprocessing and/or need to be plugged into pipelines before they can be used, while \autoref{sec:prior:methods:pipelines} will demonstrate standalone pipelines that do all the analysis from raw data to determining lineages and their abundances. This determination can be focused on \acrfull{vocs} as well as \acrfull{vois} and additionally with an intention to detect newly appeared unknown variants. In \autoref{sec:prior:discussion}, a short discussion of the existing methods with respect to the goals of this thesis will be given.
+From the beginning of the COVID-19 pandemic, several approaches have been presented to determine SARS-CoV-2 in wastewater samples. An overview of existing tools and pipelines will be given in \cref{sec:prior:methods}. Some tools and pipelines aiming to detect SARS-CoV-2 lineages and their abundance in wastewater samples will be considered. More specifically, \cref{sec:prior:methods:tools} will show individual tools that require data preprocessing and/or need to be plugged into pipelines before they can be used, while \cref{sec:prior:methods:pipelines} will demonstrate standalone pipelines that do all the analysis from raw data to determining lineages and their abundances. This determination can be focused on \acrfull{vocs} as well as \acrfull{vois} and additionally with an intention to detect newly appeared unknown variants. In \cref{sec:prior:discussion}, a short discussion of the existing methods with respect to the goals of this thesis will be given.
 
     \subsection{Methods for wastewater surveillance} \label{sec:prior:methods}
-    
-    INTRO
     
         \subsubsection{Individual tools} \label{sec:prior:methods:tools}
 
@@ -50,14 +48,20 @@ From the beginning of the COVID-19 pandemic, several approaches have been presen
 
         With Trim Galore \cite{krueger2021}, Lineagespot performs quality control and adapter trimming on raw \acrshort{fastq} files. To map reads to reference SARS-CoV-2 sequences, minimap2 \cite{li2018} is used. Primer trimming is performed using SAMtools \cite{li2009}, BEDTools \cite{bedtools}, and minimap2. By using Picard \cite{picard}, duplicates obtained from the sequencing process can be filtered. Then, Lineagespot uses FreeBayes \cite{garrison2012} to call variants and SnpEff \cite{snpeff} to annotate mutations. Then, for the lineage assignment process, in order to retrieve lineage definitions, Lineagespot relies on particular sources. For Lineagespot, two sources can be used: lineage-characteristic mutation profiles derived from (i) outbreak.info \cite{outbreakinfo}, and (ii) trained Pangolin \cite{otoole2021} models. As a result of the pipeline, a tabular output contains the most probable lineages found. The diagram that describes the lineagespot workflow is presented in \cref{fig:prior:ls}.
         
-        \begin{figure}[h]
+        After computing lineages abundances, Lineagespot provides a set of indicators for each of the provided references. Based on these indicators, the final assignment is made. This additional step in Lineagespot is one of the advantages of this pipeline over others since it allows to mitigate the risk of wrong assigned lineages (e.g. in the case of two groups of reads satisfying different rules for the same lineage but reads from both groups never satisfying all rules for this lineage). According to Lineagespot, several different indicators reflect how many rules are satisfied, how many rules are satisfied based on the detected mutations, and how many reads support each rule both as a reference and as an allele. The drawback of this method is that assignment is made by a semi-automated process but not completely automated.
+        \begin{landscape}
+        \centering\vspace*{\fill}
+        \begin{center}
+        \begin{figure}[H]
         	\centering
-            \includegraphics[width=0.5\textwidth]{figures/prior/lineagespot_vertical.png}
-            \captionof{figure}{Lineagespot workflow. }
+            \includegraphics[width=1.4\textwidth]{figures/prior/lineagespot.png}
+            \captionof{figure}{Lineagespot workflow.}
             \label{fig:prior:ls}
         \end{figure}
+        \end{center}
+        \vfill
+        \end{landscape}
         
-        After computing lineages abundances, Lineagespot provides a set of indicators for each of the provided references. Based on these indicators, the final assignment is made. This additional step in Lineagespot is one of the advantages of this pipeline over others since it allows to mitigate the risk of wrong assigned lineages (e.g. in the case of two groups of reads satisfying different rules for the same lineage but reads from both groups never satisfying all rules for this lineage). According to Lineagespot, several different indicators reflect how many rules are satisfied, how many rules are satisfied based on the detected mutations, and how many reads support each rule both as a reference and as an allele. The drawback of this method is that assignment is made by a semi-automated process but not completely automated.
         \paragraph{PiGx}
         The other pipeline, PiGx SARS-CoV-2 \cite{schumann2021}, first, performs extensive quality control on the raw reads and information about primers and adapters used. Fastp \cite{chen2018} is used for adapter trimming and filtering, while iVAR is used for primer trimming. Using BWA \cite{li2013}, the trimmed reads are aligned to the reference genome of SARS-CoV-2, resulting in SAM/BAM files with aligned and unaligned reads. After alignment, MultiQC \cite{multiqc} is used to aggregate reports that check the quality of raw and processed reads. Further, PiGx checks samples for genome coverage and how many of the provided signature mutation sites, sites with mutations that characterize variants of concern or variants of interest, are covered by the sample. Every sample is given a quality score based on this. Those samples with genome coverage of less than 90\% are discarded from time series analyses and summaries.
 
@@ -67,28 +71,35 @@ From the beginning of the COVID-19 pandemic, several approaches have been presen
         
         After lineage frequencies prediction, PiGx generates a per-sample report that describes variants of concern and frequency of lineages from each wastewater sample. Additionally, the unaligned reads will be taxonomically classified with Kraken2 \cite{wood2014,wood2019,lu2020} to determine the abundance of RNA that matches other existing species found in unaligned reads in the wastewater samples. The diagram of PiGx pipeline is shown in \cref{fig:prior:pigx}.
         
-        \begin{figure}[h]
-        	\centering
-            \includegraphics[width=0.5\textwidth]{figures/prior/pigx_vertical.png}
-            \captionof{figure}{PiGx workflow. }
-            \label{fig:prior:pigx}
-        \end{figure}
-        
         One of the significant benefits of PiGx method is the addition of different weights of tracked lineages based on how many signature mutations were found for each of them for a given sample. The purpose of this step is to determine which lineages have a low abundance and have only a few or only shared mutations in order to obtain more precise predictions. 
 
         PiGx has another advantage - controlling taxonomic classification for other species present in samples but not mapped to the SARS-CoV-2 reference sequence. With Kraken2 usage, this simple step opens opportunities for learning about sample diversity. Due to Kraken2's k-mer classification, it can also identify reads that match SARS-CoV-2 but are not aligned with stringent alignment tools. In addition, it provides insights into the possibility of losing new mutations that weren't captured in the alignment. The user can analyze potential issues here and adjust the alignment stringency if necessary.
+        \begin{landscape}
+        \centering\vspace*{\fill}
+        \begin{figure}[H]
+        	\centering
+            \includegraphics[width=1.5\textwidth]{figures/prior/pigx.png}
+            \captionof{figure}{PiGx workflow. }
+            \label{fig:prior:pigx}
+        \end{figure}
+        \vfill
+        \end{landscape}
 
         \paragraph{Cowwid}
         In its turn, another approach, Cowwid \cite{jahn2021} pipeline uses steps: i) processing raw reads with the help of V-pipe \cite{posada2021} sub-workflow (performing quality controls and read filtering with FastQC and PRINSEQ \cite{babraham,prinseq}, assembly with VICUNA \cite{vicuna2012}, read alignment with BWA-MEM and ngshmmalign \cite{li2013,ngshmmalign2021} and variant calling with ShoRAH \cite{shorah}); ii) co-occurrence analysis (detecting mutation co-occurrence) with the help of COJAC \cite{jahn2022,cojac2022}; iii) building of the list of signature mutations for the variants of concern, variant mutation table, and visualization including heatmaps and curves plots generation with the help of Jupyter; iv) generation of Python script for upload to CoV-Spectrum. The diagram that describes the Cowwid workflow is presented in \cref{fig:prior:cowwid}.
         
-        \begin{figure}[h]
+        The advantage of Cowwid pipeline is its capability to detect lineages that are unknown as it uses COJAC tool as a co-occurance step. The other bright side of Cowwid is that its output was already experienced to be uploaded to CoV-Spectrum which means the accessibility of results and a variety of visualizations. Though, the Jupyter-based plots as well as the upload script look hard-coding, which is disadvantageous. That means that this pipeline is advanced but requires to be adjusted and generalized in order to use it for other than datasets described by K. Jahn et al. \cite{jahn2022}. 
+        \begin{landscape}
+        \centering\vspace*{\fill}
+        \begin{figure}[ht!]
         	\centering
-            \includegraphics[width=0.3\textwidth]{figures/prior/cowwid_vertical.png}
+            \includegraphics[width=1.4\textwidth]{figures/prior/cowwid.png}
             \captionof{figure}{Cowwid workflow. }
             \label{fig:prior:cowwid}
         \end{figure}
+        \vfill
+        \end{landscape}
         
-        The advantage of Cowwid pipeline is its capability to detect lineages that are unknown as it uses COJAC tool as a co-occurance step. The other bright side of Cowwid is that its output was already experienced to be uploaded to CoV-Spectrum which means the accessibility of results and a variety of visualizations. Though, the Jupyter-based plots as well as the upload script look hard-coding, which is disadvantageous. That means that this pipeline is advanced but requires to be adjusted and generalized in order to use it for other than datasets described by K. Jahn et al. \cite{jahn2022}. 
         
         \paragraph{Pipeline described by R. Izquierdo-Lara et al.}
         
@@ -96,14 +107,18 @@ From the beginning of the COVID-19 pandemic, several approaches have been presen
 
         For the phylogenetic analysis, sequences were aligned with >75\% genome coverage using MAFFT \cite{mafft}, followed by visualization of trees with Figtree \cite{figtree}, and clades assignment with Nextclade tool \cite{nextclade2022}. The diagram that describes the workflow is presented in \cref{fig:prior:izquierdo}.
         
-        \begin{figure}[h]
+        A feature that this pipeline offers that others listed above in this section do not is phylogenetic analysis and visualization of the phylogenetic tree.
+        \begin{landscape}
+        \centering\vspace*{\fill}
+        \begin{figure}[ht!]
         	\centering
-            \includegraphics[width=1\textwidth]{figures/prior/Izquierdo-Lara_vertical.png}
+            \includegraphics[width=1.4\textwidth]{figures/prior/Izquierdo-Lara.png}
             \captionof{figure}{Workflow described by R. Izquierdo-Lara et al.}
             \label{fig:prior:izquierdo}
         \end{figure}
+        \vfill
+        \end{landscape}
         
-        A feature that this pipeline offers that others listed above in this section do not is phylogenetic analysis and visualization of the phylogenetic tree.
         
         \subsubsection{Comparison of methods for wastewater surveillance}
         To compare the existing tools and pipelines representing different state-of-the-art approaches, \cref{tab:prior:methods} shows some of them accompanied by description of inputs, produced outputs, type of provided licence, precence in Galaxy, and prior usage.
@@ -221,7 +236,7 @@ From the beginning of the COVID-19 pandemic, several approaches have been presen
         \end{table}
 
     \subsection{Discussion of existing methods} \label{sec:prior:discussion}
-    A number of methods were described above that use different models to determine SARS-CoV-2 lineages and their abundances in wastewater samples. Several of the methods listed can be applied to the purpose of this thesis, i.e., improvement of existing Galaxy workflows for analyzing SARS-CoV-2 clinical samples, repurposing them to detection of SARS-CoV-2 variants in wastewater samples as well as discerning of lineage abundances in these samples. It should be pointed out that, in \autoref{sec:prior:methods:tools}, separate tools are listed that focus directly on lineage abundance computation, whereas, in \autoref{sec:prior:methods:pipelines}, complete and almost complete standalone pipelines like PiGx, Lineagespot, Cowwid, etc. are listed that include the entire raw reads bioinformatics analysis. Standalone pipelines are not intended to be improved in this work. Conversely, individual tools that are capable of being plugged into existing Galaxy workflows and performing lineage abundances computation are the interest of this thesis.
+    A number of methods were described above that use different models to determine SARS-CoV-2 lineages and their abundances in wastewater samples. Several of the methods listed can be applied to the purpose of this thesis, i.e., improvement of existing Galaxy workflows for analyzing SARS-CoV-2 clinical samples, repurposing them to detection of SARS-CoV-2 variants in wastewater samples as well as discerning of lineage abundances in these samples. It should be pointed out that, in \cref{sec:prior:methods:tools}, separate tools are listed that focus directly on lineage abundance computation, whereas, in \cref{sec:prior:methods:pipelines}, complete and almost complete standalone pipelines like PiGx, Lineagespot, Cowwid, etc. are listed that include the entire raw reads bioinformatics analysis. Standalone pipelines are not intended to be improved in this work. Conversely, individual tools that are capable of being plugged into existing Galaxy workflows and performing lineage abundances computation are the interest of this thesis.
 
     Two tools, Freyja \cite{joshuailevy2022,karthikeyan2022} and COJAC \cite{jahn2021}, were a choice to use in the workflows to achieve the goal of this thesis. Roughly speaking, these tools are different in purpose; for example, Freyja’s output is easy to interpret without some specific knowledge, while COJAC requires more knowledge to be used. First of all, it demands some knowledge in programming as the output of COJAC is quite raw so far and has to be processed for downstream analysis like plotting and integrating to remote platforms such as CoV-Spectrum. Second of all, the usage of COJAC requires some knowledge of virology. Despite this, COJAC provides more detailed information and is able to detect unknown variants. These two different tools, Freyja and COJAC, target different user groups (e.g., politicians and researchers), which is interesting for this thesis's research purposes.
     
