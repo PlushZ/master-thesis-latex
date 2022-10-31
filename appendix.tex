@@ -96,7 +96,7 @@ df_fr = df_fr.drop((['lineages','abundances']), axis=1)
         \end{landscape}
         
         \subsubsection{Parallel coordinates} 
-        \paragraph{Parallel coordinates for all samples} \label{sec:appendix:figures:parallel-all}
+        \paragraph{Parallel coordinates for all mock samples} \label{sec:appendix:figures:parallel-all}
         \Cref{fig:further:parallel-delta-all}, \cref{fig:further:parallel-ba1-all} and \cref{fig:further:parallel-ba2-all} depict parallel coordinates for all samples considering only detection of Delta, BA.1, and BA.2 lineage respectively by Freyja and COJAC.
         \begin{figure}[H]
         	\centering
@@ -117,7 +117,7 @@ df_fr = df_fr.drop((['lineages','abundances']), axis=1)
             \label{fig:further:parallel-ba2-all}
         \end{figure}
         
-        \paragraph{Parallel coordinates for samples with two lineages expected} \label{sec:appendix:figures:parallel-twolin}
+        \paragraph{Parallel coordinates for mock samples with two lineages expected} \label{sec:appendix:figures:parallel-twolin}
         \Cref{fig:further:parallel-delta-twolin}, \cref{fig:further:parallel-ba1-twolin} and \cref{fig:further:parallel-ba2-twolin} depict parallel coordinates for "two lineages" group of samples considering only detection of Delta, BA.1, and BA.2 lineage respectively by Freyja and COJAC. Although, for the "two lineages" group of samples, it is not that reasonable to separate graphs into different lineages but focus on the ratio between two expected lineages. Even though, detected proportion of certain expected lineage was worthwhile to to have a look at. Thus, parallel coordinates graphs were generated in the way of one graph per lineage.
         \begin{figure}[H]
         	\centering
@@ -138,7 +138,7 @@ df_fr = df_fr.drop((['lineages','abundances']), axis=1)
             \label{fig:further:parallel-ba2-twolin}
         \end{figure}
         
-        \subsubsection{Example of different types of plots for one sample} 
+        \subsubsection{Example of different types of plots for one mock sample} 
         \Cref{fig:further:bar-s1}, \cref{fig:further:pc-s1} and \cref{fig:further:line-s1} show plots generated per sample to make detailed observations. The example for the sample1 is provided below. However, these graphs were constructed for every sample during this master thesis. Types of plots that were generated per one sample: i) bar plot (\cref{fig:further:bar-s1}); ii) parallel coordinates plot (\cref{fig:further:pc-s1}); iii) line plot (\cref{fig:further:line-s1}), to look at absolute values of lineage proportion against scaled values in parallel coordinates. The comparison with expected lineage proportions was included in these plots.
 .
         \begin{figure}[H]
@@ -160,7 +160,7 @@ df_fr = df_fr.drop((['lineages','abundances']), axis=1)
             \label{fig:further:line-s1}
         \end{figure}
         
-        \subsubsection{Collection of bar plots across all samples is provided} \label{sec:appendix:figures:bars-all}
+        \subsubsection{Collection of bar plots across all mock samples} \label{sec:appendix:figures:bars-all}
         \Cref{fig:further:bars-delta-all}, \cref{fig:further:bars-ba1-all} and \cref{fig:further:bars-ba2-all} depict barplots for all samples considering only detection of Delta, BA.1, and BA.2 lineage respectively.
         
         \begin{figure}[H]
@@ -183,9 +183,7 @@ df_fr = df_fr.drop((['lineages','abundances']), axis=1)
         \end{figure}
         
        \subsubsection{Distribution of lineages proportions detected by Lineagespot across all mock samples}  
-        \Cref{fig:further:dist-ls} represents the proportions of every lineage detected by Lineagespot on mock dataset. Observed that most of the samples, more than 50\%, according to Lineagespot, carry a small proportion, no more than 0.15, of lineage abundance, while higher proportions of all 3 lineages are present in less amount of samples. 
-        
-        Fig.10. all three considered lineages (Delta, BA.1, BA.2) proportion distribution among results detected by Lineagespot.
+        \Cref{fig:further:dist-ls} represents the proportions of every lineage detected by Lineagespot on mock dataset. Observed that most of the samples, more than 50\%, according to Lineagespot, carry a small proportion, no more than 0.15, of lineage abundance, while higher proportions of all 3 lineages are present in less amount of samples.
         \begin{figure}[H]
         	\centering
             \includegraphics[width=0.5\textwidth]{figures/further/distr-lineagespot.png}
