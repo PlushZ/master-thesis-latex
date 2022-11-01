@@ -25,7 +25,7 @@ In the following sections, the results of downstream data analysis will be shown
                 From \cref{fig:results:mock:bar-singlin} it is obvious that all three tools are effective in detecting expected lineage. Nonetheless, in the detection of only expected lineage and nothing more, Lineagespot performed the best, compared to COJAC and Freyja. Freyja is effective at detecting expected lineage; however, it always detected some unexpected lineages. COJAC's results are close to Freyja's results, but COJAC was able to detect 2 samples with the expected lineage. Another interesting observation is that in 4 samples, COJAC is rather to detect nothing than expected lineage. 
                 \begin{figure}[ht!]
                 	\centering
-                    \includegraphics[width=0.7\textwidth]{figures/results/mock/singlin-num-bars.png}
+                    \includegraphics[width=0.8\textwidth]{figures/results/mock/singlin-num-bars.png}
                     \captionof{figure}{Bar plot describing the number of mock samples of single lineage group that meet one of four characteristics: i) expected lineage detected; ii) expected lineage plus unexpected lineages detected; iii) unexpected lineage detected; iv) nothing detected}
                     \label{fig:results:mock:bar-singlin}
                 \end{figure}
@@ -91,7 +91,7 @@ In the following sections, the results of downstream data analysis will be shown
             As for the group of samples where two lineages are expected to be found, I defined five characteristics based on what was detected in samples: i) both expected lineages; ii) only one expected lineage; iii) one expected plus unexpected lineages; iv) both expected plus unexpected lineages; v) nothing. As with the single lineage group analysis, a combined bar plot, which shows the number of samples that satisfy each characteristic, was generated using Python (\cref{fig:results:mock:bar-twolin}). 
             \begin{figure}[ht!]
                 \centering
-                \includegraphics[width=0.7\textwidth]{figures/results/mock/twolin-num-bars.png}
+                \includegraphics[width=0.8\textwidth]{figures/results/mock/twolin-num-bars.png}
                 \captionof{figure}{Bar plot describing the number of mock samples of two lineages group that meet one of five characteristics: i) both expected lineages detected; ii) only one expected lineage detected; iii) one expected plus unexpected lineages detected; iv) both expected plus unexpected lineages detected; v) nothing detected.}
                 \label{fig:results:mock:bar-twolin}
             \end{figure}
@@ -177,5 +177,208 @@ In the following sections, the results of downstream data analysis will be shown
         
     
     \subsection{Real-world datasets results} \label{sec:results:real}
+    For this thesis, the real-world data for experiments were chosen based on the principle that samples were collected over a variety of time periods and locations around the world. In chosen four datasets, I aimed to cover these principles expecting to observe evolution of SARS-CoV-2 over time as well as to show variations in prevalence of a variety of SARS-CoV-2 lineages depending on the location.
+
+    Metadata on real-world datasets of choice for this master thesis is shown in \cref{tab:methods:real-datasets}. In the following sections, the results of running developed Galaxy workflows will be shown. \Cref{sec:results:real:california} will represent results of Freyja-based Galaxy workflow on the Californian dataset, \cref{sec:results:real:canada} - Freyja-based and COJAC-based workflows results on the Canadian dataset, \cref{sec:results:real:us} - Freyja-based and COJAC-based workflows results on US dataset, and, finally, \cref{sec:results:real:uk} - Freyja-based and COJAC-based workflows results on UK dataset. 
+
+    \subsubsection{Dataset (PRJNA661613): California sewage metatranscriptomes enriched for respiratory viruses} \label{sec:results:real:california}
+    For this dataset, samples of raw sewage were collected from wastewater treatment facilities in Alameda and Marin Counties in Northern California between 13 May 2020 and 30 July 2020 at a wastewater interceptor (labeled Berkeley, Berkeley Hills, Oakland, and Marin, according to the municipal areas each serves).
+
+    For this dataset, only the Freyja-based branch of Galaxy workflow was launched because the COJAC-based branch is applicable only to the ampliconic library preparation dataset, while Freyja can work with metatranscriptomics which is the case of the Californian dataset.
+    
+    In the step of checking the abundance of other species that are unmapped to reference SARS-CoV-2 sequence on the Californian dataset, Kraken2 was run on a dataset collection using viral genomes taxa database, following Krona pie charts generation. Going across samples’, approximately 78\% to around 85\% of fragments are covered by the clade rooted at unclassified taxon. In a similar manner, from sample to sample percentage, from around 18\% to 22\%, of fragments are covered by the clade rooted at either viruses, ribovirus, nidovirales, cornidovirineae, or coronaviridae taxon. Slightly smaller proportions of fragments are covered by the clade rooted at Orthocoronavirinae, Betacoronavirus, Sarbecovirus, Severe acute respiratory syndrome-related coronavirus, and SARS coronavirus, around 12-15\%. Notable, the number of fragments assigned directly to the SARS coronavirus taxon is non-zero, as it is for most of the taxons. 
+    
+    Krona charts were produced for every sample separately, followed by a Krona pie that represents all samples in one pie chart. \Cref{fig:results:real:krona-sf-a}, \ref{fig:results:real:krona-sf-b} show resulting examples of Krona charts for two separate samples (SRR12596166 and SRR12596175, respectively), \cref{fig:results:real:krona-sf-c} illustrates Krona pie for aggregated all samples of dataset. 
+    
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-sf-sSRR12596166.png}
+        \captionof{figure}{Krona for sample SRR12596166}
+        \label{fig:results:real:krona-sf-a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.43\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-sf-sSRR12596175.png}
+        \captionof{figure}{Krona for sample SRR12596175}
+        \label{fig:results:real:krona-sf-b}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-sf-all.png}
+        \captionof{figure}{Krona for all aggregated samples}
+        \label{fig:results:real:krona-sf-c}
+        \end{subfigure}
+        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the Californian dataset (PRJNA661613).}
+    \end{figure}
+    
+    As for lineages abundances analysis on the Californian dataset, there were no exact names, like Omicron, Delta, etc., defined by Freyja using UShER bar-codes. So, for aggregation tables and for plotting Freyja used the label “Other” (see \cref{tab:appendix:freyja} in \cref{sec:appendix:tabs:freyja}). When detecting lineages that are considered by Freyja as “Other” designated name, the result bar plots are non-informative since they contain only one group of lineage - “Other”. Moreover, trying to produce an interactive dashboard, Freyja can meet an issue with “too many lineages to plot”. Due to Freyja's limitations, for the Californian dataset, plots were either non-informative or not generated.
+    
+    \subsubsection{Dataset (PRJNA824537): Wastewater influents from wastewater treatment facilities across Ontario, Canada} \label{sec:results:real:canada}
+    Wastewater samples were collected by Canadian Research Institute for Food Safety. The dataset contains one of the relatively recent samples, the last sample was published in June of 2022.
+
+    Similarly to the Californian dataset analysis, Krona charts were created for each sample of the Canadian dataset separately, followed by a Krona pie representing all samples. \Cref{fig:results:real:krona-ca-a}, \ref{fig:results:real:krona-ca-b} show resulting examples of Krona charts for two separate samples (SRR18680446 and SRR18680489, respectively), \cref{fig:results:real:krona-ca-c} illustrates Krona pie for aggregated all samples of dataset.
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.46\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-ca-sSRR18680446.png}
+        \captionof{figure}{Krona for sample SRR18680446}
+        \label{fig:results:real:krona-ca-a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.44\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-ca-sSRR18680489.png}
+        \captionof{figure}{Krona for sample SRR18680489}
+        \label{fig:results:real:krona-ca-b}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.44\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-ca-all.png}
+        \captionof{figure}{Krona for all aggregated samples}
+        \label{fig:results:real:krona-ca-c}
+        \end{subfigure}
+        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the Canadian dataset (PRJNA824537).}
+    \end{figure}
+    
+    Regarding results on SARS-CoV-2 lineages abundances, for the dataset from Ontario, Canada (PRJNA824537), there were readable plots generated by Freyja (\cref{fig:results:real:ca-freyja-samples},\ref{fig:results:real:ca-freyja-daily}). In \cref{fig:results:real:ca-freyja-samples}, one can see all samples represented by bars (one bar per sample). However, they are not in order of collecting date and time, which makes it difficult to interpret. One can see that some of the samples contain abundant Omicron lineage, and some other samples have abundant Delta. Nevertheless, it is the general picture of lineages abundance among samples. \Cref{fig:results:real:ca-freyja-daily}, in contrast, represents trends and changes in lineage abundances over time. Delta was a prevalent lineage at the beginning of December 2021, while from the mid of December 2021, Omicron began to be most predominant, and its abundance increased significantly up to around 0.9 lineage abundance proportion in February 2022. It's worth noting that Freyja always detected other lineages in samples, except Omicron and Delta, although in small proportions, around 0.05.
+    
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{1\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/ca-freyja-samples.png}
+        \captionof{figure}{Variant prevalence across samples.}
+        \label{fig:results:real:ca-freyja-samples}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/ca-freyja-daily.jpg}
+        \captionof{figure}{Variant prevalence with daily binning.}
+        \label{fig:results:real:ca-freyja-daily}
+        \end{subfigure}
+        \hfill
+        \captionof{figure}{Variant prevalence computed by Freyja over samples, produced by Freyja on Ontario, Canada (PRJNA824537).}
+    \end{figure}
+    
+    To compare results on the Canadian (PRJNA824537) dataset from both Freyja and COJAC branches of Galaxy workflow, two bar plots were considered: one generated by Freyja (\cref{fig:results:real:ca-freyja-monthly}), one generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:ca-cojac-monthly}). 
+    
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.6\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/ca-freyja-monthly.png}
+        \captionof{figure}{Bar plot generated by Freyja.}
+        \label{fig:results:real:ca-freyja-monthly}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/ca-cojac-monthly.png}
+        \captionof{figure}{Bar plot generated from COJAC output using Python.}
+        \label{fig:results:real:ca-cojac-monthly}
+        \end{subfigure}
+        \hfill
+        \captionof{figure}{Bar plot with sample collection time information grouped by month, for the Canadian (PRJNA824537) dataset.}
+    \end{figure}
+    
+    Results on the Canadian (PRJNA824537) dataset from Freyja and COJAC differ, as shown in \cref{fig:results:real:ca-freyja-monthly}, \ref{fig:results:real:ca-cojac-monthly}. However, the prevalence of Delta in November and December 2021 and the prevalence of Omicron in January and February 2022 are discerned by both methods. Another interesting observation is that Freyja found the Omicron variant already in December 2021, while COJAC was able to detect Omicron only in January 2022.
+    
+    \subsubsection{Dataset (PRJNA765346): GenomeTrakr wastewater project of Washington State Department of Health, US} \label{sec:results:real:us}
+    Samples for this dataset were and are being collected by the FDA Center for Food Safety and Applied Nutrition. This dataset is one of the most extensive dataset with more than 400 samples so far, and regularly new samples are being added (the last samples being from October of 2022). This dataset is of research interest also because it can be considered in the future as one of those that will be regularly analyzed by the Galaxy bot that was described in \cref{sec:intro:galaxy-effort}.
+
+    Similarly to the Californian and Canadian datasets, Krona charts were created for each sample of the US dataset separately, followed by a Krona pie representing all samples. \Cref{fig:results:real:krona-us-a}, \ref{fig:results:real:krona-us-b}, and \ref{fig:results:real:krona-us-c} show resulting examples of Krona charts for three separate samples (SRR17578350, SRR18300811, and SRR20997582, respectively). Krona cheat generated for all combined datasets is too abundant and rather non-informative to show.
+    
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-us-sSRR17578350.png}
+        \captionof{figure}{Krona for sample SRR17578350}
+        \label{fig:results:real:krona-us-a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-us-sSRR18300811.png}
+        \captionof{figure}{Krona for sample SRR18680489}
+        \label{fig:results:real:krona-us-b}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.47\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-us-sSRR20997582.png}
+        \captionof{figure}{Krona for sample SRR20997582}
+        \label{fig:results:real:krona-us-c}
+        \end{subfigure}
+        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the US dataset (PRJNA765346).}
+    \end{figure}
+    
+    As for results on lineage abundances received for the US (PRJNA765346) dataset, the distribution of SARS-CoV-2 lineages over time binned by the day, obtained in Freyja-based branch of the workflow, is depicted in \cref{fig:results:real:us-freyja-daily}.
+    
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/results/real/us-freyja-daily.jpg}
+        \captionof{figure}{Smooth plot with sample collection time information with daily binning for US (PRJNA765346) dataset.}
+        \label{fig:results:real:us-freyja-daily}
+    \end{figure}
+    
+    \Cref{fig:results:real:us-freyja-daily} shows curious results. Delta was found by Freyja in samples of the US dataset only in November 2021. From January to March 2022, Omicron (BA.1 sub-lineage) was prevalent, accompanied by other lineages found in samples but grouped into “Other” lineages. From April to June 2022, the BA.2 sub-lineage of Omicron was common in the US dataset. Finally, by September 2022, Omicron BA.1 took the prevalence back, with about 0.6 proportion against 0.4 for other lineages.
+
+    To compare results on the US (PRJNA765346) dataset from both Freyja and COJAC branches of Galaxy workflow, there were two bar plots created: one was generated by Freyja  (\cref{fig:results:real:us-freyja-monthly}), while the other was generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:us-cojac-monthly})).
+    
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{1\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/us-freyja-monthly.png}
+        \captionof{figure}{Bar plot generated by Freyja.}
+        \label{fig:results:real:us-freyja-monthly}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.9\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/us-cojac-monthly.png}
+        \captionof{figure}{Bar plot generated from COJAC output using Python.}
+        \label{fig:results:real:us-cojac-monthly}
+        \end{subfigure}
+        \hfill
+        \captionof{figure}{Bar plot with sample collection time information grouped by month, for US (PRJNA765346) dataset.}
+    \end{figure}
+    
+    Results from Freyja and COJAC on the US dataset are obviously not the same. The curious fact is detecting the considerable prevalence of the Delta lineage in summer 2022 by COJAC and not detecting it by Freyja. And more expected that both tools found Delta at the end of 2021 and the prevalence of Omicron (both BA.1 and BA.2 sub-lineages) in 2022. Interestingly, the BA.1 lineage was prevalent from January to March 2022, while BA.2 from April to June 2022.
+    
+    \subsubsection{Dataset (PRJEB42191): monitoring SARS-CoV-2 in municipal wastewater in the UK} \label{sec:results:real:uk}
+    Samples for this dataset were collected from six wastewater treatment plants located in Wales and Northwest England. The treatment plants served urban areas in Gwynedd, Cardiff, Liverpool, Manchester, the Wirral and Wrexham, with a combined population equivalent to 3 million people. Weekly samples of untreated wastewater influent were taken from the six treatment plants between March and June 2020.
+    
+    Similarly to the Californian, Canadian, and US datasets, Krona charts were created for each sample of the UK dataset separately, followed by a Krona pie representing all samples. \Cref{fig:results:real:krona-uk-a}, \ref{fig:results:real:krona-uk-b} show resulting examples of Krona charts for two separate samples (ERR5014633 and ERR5014683, respectively), \cref{fig:results:real:krona-ca-c} illustrates Krona pie for aggregated all samples of dataset.
+    
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.42\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-uk-sERR5014633.png}
+        \captionof{figure}{Krona for sample ERR5014633}
+        \label{fig:results:real:krona-uk-a}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.52\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-uk-sERR5014683.png}
+        \captionof{figure}{Krona for sample ERR5014683}
+        \label{fig:results:real:krona-uk-b}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-uk-all.png}
+        \captionof{figure}{Krona for all aggregated samples}
+        \label{fig:results:real:krona-uk-c}
+        \end{subfigure}
+        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the UK dataset (PRJEB42191).}
+    \end{figure}
+    
+    The same as to the Californian dataset, for the UK dataset, Freyja labeled all detected variants as “Other”; hence, only non-informative non-interactive plots were generated. Even though Freyja has a limitation while producing an interactive dashboard for too many lineages, for the UK dataset (PRJEB42191), the interactive dashboard was generated (Fig.10). According to the graph, eight lineages were clearly detected by Freyja: i) B.27 that is described in Pango database as “UK lineage, Curacao, Switzerland”; ii) B.23 that was discovered in UK and Portugal; iii) B.12 (Japanese lineage), iv) B.1.14 (USA lineage, California); v) B, one of the two original haplotypes of the pandemic (and first to be discovered); vi) B.1.1.161 (Saudi lineage); vii) B.1.1.514 (US lineage); viii) B.1.1.301 (UK lineage). 
+    
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=1\textwidth]{figures/results/real/uk-freyja-dash-early-detection.png}
+        \captionof{figure}{Interactive dashboard for UK (PRJEB42191) dataset that was generated by Freyja tool as a part of Freyja-based Galaxy workflow.}
+        \label{fig:results:real:uk-freyja-dash}
+    \end{figure}
+    
+    Looking at \cref{fig:results:real:uk-freyja-dash}, one can see the prevalence of different lineages over the sample collection time period, from 30 March to 12 May 2020. Detection of B.1.1.514 and B.1.1.301 lineages already at the end of March 2020 (more precisely, in samples collected on 31 March, as well as on 6, 16, and 20 April 2020) is worth mentioning because in Pango database \cite{covlineages} the earliest dates of registration for these lineages is 1 and 22 May 2020, respectively. This fact proves earlier detection within wastewater surveillance over clinical surveillance.
+
+
+
+
 
 \clearpage
