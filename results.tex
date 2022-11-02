@@ -21,7 +21,7 @@ In the following sections, the results of downstream data analysis will be shown
         Galaxy workflows results were compared with Lineagespot results using the same synthetic mock dataset. As expected, Galaxy workflow results in both branches differ from Lineagespot results. That is because different approaches (sub-workflows) are used for data preprocessing steps which were described in \autoref{sec:methods:evaluation:mock:compare-ls} of \cref{sec:methods}. In evaluating workflows on the mock dataset, two groups of samples were selected: one with a single lineage and one with two lineages.
             \paragraph{Single lineage group of samples}
             The Single lineage group consists of 22 samples. Four characteristics were used for a single lineage group. The goal was to discover in which samples were detected: i) expected lineage; ii) expected lineage plus unexpected lineages; iii) unexpected lineage; iv) nothing. Each of these characteristics is represented by a combined bar plot that shows how many samples meet that characteristic.
-                \subparagraph{Bar plot}
+                
                 From \cref{fig:results:mock:bar-singlin} it is obvious that all three tools are effective in detecting expected lineage. Nonetheless, in the detection of only expected lineage and nothing more, Lineagespot performed the best, compared to COJAC and Freyja. Freyja is effective at detecting expected lineage; however, it always detected some unexpected lineages. COJAC's results are close to Freyja's results, but COJAC was able to detect 2 samples with the expected lineage. Another interesting observation is that in 4 samples, COJAC is rather to detect nothing than expected lineage. 
                 \begin{figure}[ht!]
                 	\centering
@@ -31,7 +31,6 @@ In the following sections, the results of downstream data analysis will be shown
                 \end{figure}
                 \Cref{fig:results:mock:bar-singlin} shows that Freyja is an effective tool for detecting expected lineage, even though Freyja always detects other lineages. When it is expected the sample to contain only one lineage but nothing more, Freyja is not that effective. Moreover, in 6 samples for Freyja and in 2 samples for COJAC (out of 22), there were detected unexpected, i.e. incorrect, lineages. On the other hand, Lineagespot is effective in the case of detecting only expected lineages, probably because it has the additional step in its pipeline when the most probable lineages are assigned for the sample. This extra step is made based on several indicators. So Lineagespot detected only expected lineage in 7 samples out of 22 samples from a single lineage group. As for COJAC, it performed quite well and was able to detect only one lineage that was expected in 2 out of 22 samples, however, for 4 samples with expected lineage, COJAC detected nothing.
                 
-                \subparagraph{Venn Upset}
                 In order to better understand the interrelationships between different results (Freyja, COJAC, Lineagespot), a Venn Upset diagram was generated. Using this method, I analyzed intersections between sets of results and determined which samples were correctly detected by which tool (in terms of the lineages expected) and how similar the results were between tools.
 
                 Venn Upset diagram below (\cref{fig:results:mock:venn-singlin}) was constructed based on 22 samples in which there was a single lineage expected. Each column corresponds to a set of obtained results from certain tools (COJAC, Lineagespot, Freyja), and bar charts on top show the size of the set of tool’s results. The first row in the figure is completely empty, while 1 sample is expected to be detected but was not. This sample75 is expected to contain only unknown synthetic lineage. 
@@ -44,7 +43,6 @@ In the following sections, the results of downstream data analysis will be shown
                     \label{fig:results:mock:venn-singlin}
                 \end{figure}
 
-                \subparagraph{Distribution: proportion of expected lineage detected by tool}
                 Moreover, using Python with the Seaborn library, a distribution of the proportion of lineage detected by Freyja and COJAC among samples in the Single lineage group was plotted (\cref{fig:results:mock:dist-singlin}) by only considering samples where expected lineage was detected. The comparison was limited to Freyja and COJAC. In Lineagespot, I do not have a clean proportion distribution between lineages, so I do not consider it here. One of the reasons for excluding Lineagespot from this distribution analysis: besides BA.1, BA.2, Delta, no information was provided about other lineages that have been detected in Lineagespot, and the sum of proportions of these three does not equal 1. 
                 \begin{figure}[ht!]
                 	\centering
@@ -54,7 +52,6 @@ In the following sections, the results of downstream data analysis will be shown
                 \end{figure}
                 Looking at \cref{fig:results:mock:dist-singlin}, I conclude that for single lineage detection, the results of lineage proportion from COJAC and Freyja are from 0.9 to 1. However, some differences between Freyja and COJAC results are observed. Freyja showed a lower proportion of expected lineage, while for COJAC the proportion tends to 1 which is expected. Thus, we can guess that COJAC results for the single lineage group are closer to what was expected.
                 
-                \subparagraph{Parallel coordinates}
                 For comparing Freyja and COJAC results with each other and with expected results, parallel coordinates plots were created using Python and Plotly graphing libraries. Samples are plotted as parallel coordinates across different measures using this visualization technique. Samples are represented as connected points along each vertical axis, and each measure corresponds to a vertical axis. 
 
                 Three plots, focused on the group of samples marked as "single lineage", were generated for Delta (\cref{fig:results:mock:pc-singlin-delta}), BA.1 (\cref{fig:results:mock:pc-singlin-ba1}), and BA.2 (\cref{fig:results:mock:pc-singlin-ba2}) lineages. Graphs represent different lineages (one lineage per graph). Within the graph, the left axis represents the expected proportion, the middle axis represents proportion of Delta lineage detected by COJAC, while right axis represents the proportion of Delta lineage detected by Freyja.
@@ -95,10 +92,9 @@ In the following sections, the results of downstream data analysis will be shown
                 \captionof{figure}{Bar plot describing the number of mock samples of two lineages group that meet one of five characteristics: i) both expected lineages detected; ii) only one expected lineage detected; iii) one expected plus unexpected lineages detected; iv) both expected plus unexpected lineages detected; v) nothing detected.}
                 \label{fig:results:mock:bar-twolin}
             \end{figure}
-                \subparagraph{Barplot}
+            
                 According to \cref{fig:results:mock:bar-twolin}, overall, 48 samples are in Two lineages group. From the bar plot, it is obvious that all three tools are effective in detecting both expected lineages. Nonetheless, in the detection of only two expected lineages and nothing more. Lineagespot performed the best, compared to COJAC and Freyja, as it is the only tool that was able to detect 10 samples out of 48 with two expected lineages and nothing more. As was already shown for the Single lineage group, Freyja is effective at detecting expected lineages (in 42 samples out of 48); however, it always detected some unexpected lineages. COJAC's results for two lineages are considerably close to Freyja's results; they both detected around 40 samples with two lineages expected. Even more, in one sample, COJAC was able to detect only expected lineages. Interestingly, no tools detected nothing for this group of samples.
 
-                \subparagraph{Venn Upset}
                 Venn Upset diagram below (\cref{fig:results:mock:venn-twolin}) was constructed based on 48 samples in which there were two lineages expected. Each column corresponds to a set of obtained results of certain tools (COJAC, Lineagespot, Freyja), and bar charts on top show the size of the set of tool’s results. The first row in the figure is completely empty, while 3 samples are expected to be detected but were not. These three samples are distinct from other samples by belonging to the “low coverage” group. In addition, there are a few samples in which 2 expected lineages were detected by only one tool: 1,2, and 3 samples corresponding to Lineagespot, Freyja, and COJAC. At the same time, Freyja and COJAC detected two expected lineages in 24 same samples, whereas Lineagespot did not detect both expected lineages, so there is no interaction with Lineagespot set here, but there is one between Freyja and COJAC. That can be explained by the same workflow used for Freyja and COJAC results but the different method used by Lineagespot pipeline. Interestingly, all three tools Lineagespot, Freyja, and COJAC detected the expected two lineages in 15 same samples.
                 \begin{figure}[ht!]
                 	\centering
@@ -106,7 +102,7 @@ In the following sections, the results of downstream data analysis will be shown
                     \captionof{figure}{Venn Upset diagram constructed based on 48 samples of the synthetic mock dataset in which there were two lineages expected.}
                     \label{fig:results:mock:venn-twolin}
                 \end{figure}
-                \subparagraph{Barplots: proportion comparison}
+                
                 In cases: i) both expected lineages detected and ii) both expected + unexpected lineages detected, there were additionally 6 bar plots generated to evaluate if expected proportion between two expected lineages is correctly defined by different tools. Proportions between expected lineages that were considered are: i) BA1 > BA2; ii) BA1 = BA2; iii) BA1 < BA2; iv) BA1 > Delta;  v) BA1 = Delta; vi) BA1 < Delta. These plots show every case where this proportion was expected (one plot per 1 of 6 cases), and the corresponding results from Freyja, COJAC, and Lineagespot are plotted in \cref{fig:results:mock:ba1-ba2} and \cref{fig:results:mock:ba1-delta}.
                 \begin{figure}[H]
                     \begin{subfigure}{\linewidth}
@@ -132,7 +128,7 @@ In the following sections, the results of downstream data analysis will be shown
                 For the “two lineages” expected group of samples, there are 42 samples where BA.1 and Delta lineages were expected together (\cref{fig:results:mock:ba1-delta}): 18 for BA.1 > Delta type of relation between lineage proportions, 6 for BA.1 = Delta, and 18 samples for BA.1 < Delta. For the case when the proportion of BA.1 > Delta is expected, all tools detected it correctly but not in all 18 samples. However, Freyja and COJAC performed well, being able to detect 15 and 14 samples with this type of relation, respectively. Lineagespot detected only 2 samples. Likewise, for the case of BA.1 < Delta all tools detected some samples but not all expected samples, Freyja and COJAC both detected 15 out of 18 which is significantly more than Lineagespot with its 3. Finally, when BA.1 = Delta was the expected relation, all tools discerned BA.1 < Delta relation.
 
         \subsubsection{Benchmarking Freyja- and COJAC- based workflow results}
-        \paragraph{Distribution: linages proportions among tools}
+        \paragraph{Distribution of linages proportions among tools}
         To compare Freyja and COJAC branches of workflow in another way, and to assess results with expected ones, in \cref{fig:results:mock:dist-delta-all}, \ref{fig:results:mock:dist-ba1-all}, and \ref{fig:results:mock:dist-ba1-all}, taking all 100 samples into account, the distributions of every lineage (Delta, BA.1, BA.2) are shown among received results from Freyja, COJAC, and expected proportions. It is seen that for Delta and BA.1 lineages of SARS-CoV-2 there is quite a similar number of samples carrying the same proportion of the considered lineage. Interestingly, for all lineages smaller number of samples with a low proportion of lineage was expected than detected by tools Freyja and COJAC. For BA.1 lineage there were expected more samples with higher lineage proportion than was found by Freyja and COJAC. 
         \begin{figure}[H]
             \centering
@@ -156,7 +152,7 @@ In the following sections, the results of downstream data analysis will be shown
             \captionof{figure}{The lineage proportion distribution among results from Freyja, COJAC on mock dataset (all samples), compared with expected proportions.}
         \end{figure}
         
-        \paragraph{Distribution: tools results among all mock samples}
+        \paragraph{Distribution of tools results among all mock samples}
         The other angle to observe results and compare them, is to look at how lineages are distributed in results produced by every tool. In \cref{fig:results:mock:dist-freyja-all}, one can see that Freyja detected BA.2 with a small presence in most of the samples (around 80 out of 100), while Delta and BA.1 were found by Freyja in more or less similar proportions. Looking at \cref{fig:results:mock:dist-cojac-all}, one can see just a bit different distribution when most of the samples contained a very small proportion of BA.2 according to COJAC results. In both graphs, Delta and BA.1 lineages were found in small proportion, before 0.3, in around half of samples, while around 20-30\% of samples carry Delta and BA.1 in high presence, from 0.7 to 1 value of the proportion of lineage abundance.
         
         \begin{figure}[H]
@@ -175,7 +171,7 @@ In the following sections, the results of downstream data analysis will be shown
             \captionof{figure}{All three considered lineages (Delta, BA.1, BA.2) proportion distribution among results from the tool on mock dataset.}
         \end{figure}
         
-    
+        All links to Jupyter notebooks with visualizations of results on mock dataset created for this thesis are provided in \cref{sec:appendix:mock-visualize}. One note should be said, as of the submission of this thesis, metadata for mock dataset about expected results are not published yet. Therefore, this data was used privately and not shared within this master thesis. 
     \subsection{Real-world datasets results} \label{sec:results:real}
     For this thesis, the real-world data for experiments were chosen based on the principle that samples were collected over a variety of time periods and locations around the world. In chosen four datasets, I aimed to cover these principles expecting to observe evolution of SARS-CoV-2 over time as well as to show variations in prevalence of a variety of SARS-CoV-2 lineages depending on the location.
 
@@ -212,7 +208,13 @@ In the following sections, the results of downstream data analysis will be shown
         \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the Californian dataset (PRJNA661613).}
     \end{figure}
     
-    As for lineages abundances analysis on the Californian dataset, there were no exact names, like Omicron, Delta, etc., defined by Freyja using UShER bar-codes. So, for aggregation tables and for plotting Freyja used the label “Other” (see \cref{tab:appendix:freyja} in \cref{sec:appendix:tabs:freyja}). When detecting lineages that are considered by Freyja as “Other” designated name, the result bar plots are non-informative since they contain only one group of lineage - “Other”. Moreover, trying to produce an interactive dashboard, Freyja can meet an issue with “too many lineages to plot”. Due to Freyja's limitations, for the Californian dataset, plots were either non-informative or not generated.
+    As for lineages abundances analysis on the Californian dataset, there were no exact names, like Omicron, Delta, etc., defined by Freyja using UShER bar-codes. So, for aggregation tables and for plotting Freyja used the label “Other” (see \cref{tab:appendix:freyja} in \cref{sec:appendix:tabs:freyja}). When detecting lineages that are considered by Freyja as “Other” designated name, the result bar plots are non-informative since they contain only one group of lineage - “Other”. Moreover, trying to produce an interactive dashboard, Freyja can meet an issue with “too many lineages to plot”. Due to Freyja's limitations, for the Californian dataset, plots were either non-informative like in \cref{fig:results:real:non-informative-freyja} or not generated.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.4\textwidth]{figures/results/real/non-informative-freyja.png}
+        \captionof{figure}{Lineages abundances detected by Freyja for Californian dataset, grouped by months. All lineages were labeled as "Other" which resulting to non-informative plot}
+        \label{fig:results:real:non-informative-freyja}
+    \end{figure}
     
     \subsubsection{Dataset (PRJNA824537): Wastewater influents from wastewater treatment facilities across Ontario, Canada} \label{sec:results:real:canada}
     Wastewater samples were collected by Canadian Research Institute for Food Safety. The dataset contains one of the relatively recent samples, the last sample was published in June of 2022.
@@ -259,7 +261,7 @@ In the following sections, the results of downstream data analysis will be shown
         \captionof{figure}{Variant prevalence computed by Freyja over samples, produced by Freyja on Ontario, Canada (PRJNA824537).}
     \end{figure}
     
-    To compare results on the Canadian (PRJNA824537) dataset from both Freyja and COJAC branches of Galaxy workflow, two bar plots were considered: one generated by Freyja (\cref{fig:results:real:ca-freyja-monthly}), one generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:ca-cojac-monthly}). 
+    To compare results on the Canadian (PRJNA824537) dataset from both Freyja and COJAC branches of Galaxy workflow, two bar plots were considered: one generated by Freyja (\cref{fig:results:real:ca-freyja-monthly}), one generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:ca-cojac-monthly}). Links to Jupyter notebooks with visualisations of results on real datasets created for this thesis are provided in \cref{sec:appendix:real-visualize}.
     
     \begin{figure}[H]
         \centering
@@ -318,7 +320,7 @@ In the following sections, the results of downstream data analysis will be shown
     
     \Cref{fig:results:real:us-freyja-daily} shows curious results. Delta was found by Freyja in samples of the US dataset only in November 2021. From January to March 2022, Omicron (BA.1 sub-lineage) was prevalent, accompanied by other lineages found in samples but grouped into “Other” lineages. From April to June 2022, the BA.2 sub-lineage of Omicron was common in the US dataset. Finally, by September 2022, Omicron BA.1 took the prevalence back, with about 0.6 proportion against 0.4 for other lineages.
 
-    To compare results on the US (PRJNA765346) dataset from both Freyja and COJAC branches of Galaxy workflow, there were two bar plots created: one was generated by Freyja  (\cref{fig:results:real:us-freyja-monthly}), while the other was generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:us-cojac-monthly})).
+    To compare results on the US (PRJNA765346) dataset from both Freyja and COJAC branches of Galaxy workflow, there were two bar plots created: one was generated by Freyja  (\cref{fig:results:real:us-freyja-monthly}), while the other was generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:us-cojac-monthly})). Links to Jupyter notebooks with visualisations of results on real datasets created for this thesis are provided in \cref{sec:appendix:real-visualize}.
     
     \begin{figure}[H]
         \centering
