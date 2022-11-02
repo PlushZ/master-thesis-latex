@@ -56,26 +56,23 @@ In the following sections, the results of downstream data analysis will be shown
 
                 Three plots, focused on the group of samples marked as "single lineage", were generated for Delta (\cref{fig:results:mock:pc-singlin-delta}), BA.1 (\cref{fig:results:mock:pc-singlin-ba1}), and BA.2 (\cref{fig:results:mock:pc-singlin-ba2}) lineages. Graphs represent different lineages (one lineage per graph). Within the graph, the left axis represents the expected proportion, the middle axis represents proportion of Delta lineage detected by COJAC, while right axis represents the proportion of Delta lineage detected by Freyja.
                 
-                \begin{figure}[H]
-                    \begin{subfigure}{\linewidth}
+                \begin{figure}[ht!]
                 	\centering
-                    \includegraphics[width=0.75\textwidth]{figures/results/mock/pc-singlin-delta.png}
-                    \captionof{figure}{Delta}
+                    \includegraphics[width=0.8\textwidth]{figures/results/mock/pc-singlin-delta.png}
+                    \captionof{figure}{Parallel coordinates plot for a single lineage group of samples that compare Delta lineage proportions detected by Freyja and COJAC with each other as well as with expected proportion. The left axis represents the expected proportion of the lineage, the middle axis represents the proportion of the lineage detected by COJAC, while the right axis represents the proportion of the lineage detected by Freyja.}
                     \label{fig:results:mock:pc-singlin-delta}
-                    \end{subfigure}\par\medskip
-                    \begin{subfigure}{\linewidth}
+                \end{figure}
+                \begin{figure}[ht!]
                 	\centering
-                    \includegraphics[width=0.75\textwidth]{figures/results/mock/pc-singlin-ba1.png}
-                    \captionof{figure}{BA.1}
+                    \includegraphics[width=0.8\textwidth]{figures/results/mock/pc-singlin-ba1.png}
+                    \captionof{figure}{Parallel coordinates plot for a single lineage group of samples that compare BA.1 lineage proportions detected by Freyja and COJAC with each other as well as with expected proportion. The left axis represents the expected proportion of the lineage, the middle axis represents the proportion of the lineage detected by COJAC, while the right axis represents the proportion of the lineage detected by Freyja.}
                     \label{fig:results:mock:pc-singlin-ba1}
-                    \end{subfigure}\par\medskip
-                    \begin{subfigure}{\linewidth}
+                \end{figure}
+                \begin{figure}[ht!]
                 	\centering
-                    \includegraphics[width=0.75\textwidth]{figures/results/mock/pc-singlin-ba2.png}
-                    \captionof{figure}{BA.2}
+                    \includegraphics[width=0.8\textwidth]{figures/results/mock/pc-singlin-ba2.png}
+                    \captionof{figure}{Parallel coordinates plot for a single lineage group of samples that compare BA.2 lineage proportions detected by Freyja and COJAC with each other as well as with expected proportion. The left axis represents the expected proportion of the lineage, the middle axis represents the proportion of the lineage detected by COJAC, while the right axis represents the proportion of the lineage detected by Freyja.}
                     \label{fig:results:mock:pc-singlin-ba2}
-                    \end{subfigure}\par\medskip
-                    \captionof{figure}{Parallel coordinates plot for a single lineage group of samples that compare the lineage proportions detected by Freyja and COJAC with each other as well as with expected proportion. The left axis represents the expected proportion of the lineage, the middle axis represents the proportion of the lineage detected by COJAC, while the right axis represents the proportion of the lineage detected by Freyja.}
                 \end{figure}
                 
                 From \cref{fig:results:mock:pc-singlin-delta} and \cref{fig:results:mock:pc-singlin-ba2}, it is observed that for single lineage group of samples, for detecting Delta and BA.2, COJAC performs well, the value of proportion is very close to expected 1, while Freyja performs slightly below expected. However, both results are close to expected for all samples of this group (Single lineage group).
@@ -149,7 +146,7 @@ In the following sections, the results of downstream data analysis will be shown
             \captionof{figure}{BA.2}
             \label{fig:results:mock:dist-ba1-all}
             \end{subfigure}
-            \captionof{figure}{The lineage proportion distribution among results from Freyja, COJAC on mock dataset (all samples), compared with expected proportions.}
+            \caption{The lineage proportion distribution among results from Freyja, COJAC on mock dataset (all samples), compared with expected proportions.}
         \end{figure}
         
         \paragraph{Distribution of tools results among all mock samples}
@@ -168,7 +165,7 @@ In the following sections, the results of downstream data analysis will be shown
             \captionof{figure}{COJAC}
             \label{fig:results:mock:dist-cojac-all}
             \end{subfigure}
-            \captionof{figure}{All three considered lineages (Delta, BA.1, BA.2) proportion distribution among results from the tool on mock dataset.}
+            \caption{All three considered lineages (Delta, BA.1, BA.2) proportion distribution among results from the tool on mock dataset.}
         \end{figure}
         
         All links to Jupyter notebooks with visualizations of results on mock dataset created for this thesis are provided in \cref{sec:appendix:mock-visualize}. One note should be said, as of the submission of this thesis, metadata for mock dataset about expected results are not published yet. Therefore, this data was used privately and not shared within this master thesis. 
@@ -186,26 +183,26 @@ In the following sections, the results of downstream data analysis will be shown
     
     Krona charts were produced for every sample separately, followed by a Krona pie that represents all samples in one pie chart. \Cref{fig:results:real:krona-sf-a}, \ref{fig:results:real:krona-sf-b} show resulting examples of Krona charts for two separate samples (SRR12596166 and SRR12596175, respectively), \cref{fig:results:real:krona-sf-c} illustrates Krona pie for aggregated all samples of dataset. 
     
-    \begin{figure}[H]
+    \begin{figure}[ht!]
         \centering
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-sf-sSRR12596166.png}
         \captionof{figure}{Krona for sample SRR12596166}
         \label{fig:results:real:krona-sf-a}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.43\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-sf-sSRR12596175.png}
         \captionof{figure}{Krona for sample SRR12596175}
         \label{fig:results:real:krona-sf-b}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-sf-all.png}
         \captionof{figure}{Krona for all aggregated samples}
         \label{fig:results:real:krona-sf-c}
         \end{subfigure}
-        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the Californian dataset (PRJNA661613).}
+        \caption{Krona chart visualizing the abundances of species in wastewater samples from the Californian dataset (PRJNA661613).}
     \end{figure}
     
     As for lineages abundances analysis on the Californian dataset, there were no exact names, like Omicron, Delta, etc., defined by Freyja using UShER bar-codes. So, for aggregation tables and for plotting Freyja used the label “Other” (see \cref{tab:appendix:freyja} in \cref{sec:appendix:tabs:freyja}). When detecting lineages that are considered by Freyja as “Other” designated name, the result bar plots are non-informative since they contain only one group of lineage - “Other”. Moreover, trying to produce an interactive dashboard, Freyja can meet an issue with “too many lineages to plot”. Due to Freyja's limitations, for the Californian dataset, plots were either non-informative like in \cref{fig:results:real:non-informative-freyja} or not generated.
@@ -220,31 +217,31 @@ In the following sections, the results of downstream data analysis will be shown
     Wastewater samples were collected by Canadian Research Institute for Food Safety. The dataset contains one of the relatively recent samples, the last sample was published in June of 2022.
 
     Similarly to the Californian dataset analysis, Krona charts were created for each sample of the Canadian dataset separately, followed by a Krona pie representing all samples. \Cref{fig:results:real:krona-ca-a}, \ref{fig:results:real:krona-ca-b} show resulting examples of Krona charts for two separate samples (SRR18680446 and SRR18680489, respectively), \cref{fig:results:real:krona-ca-c} illustrates Krona pie for aggregated all samples of dataset.
-    \begin{figure}[H]
+    \begin{figure}[ht!]
         \centering
-        \begin{subfigure}[b]{0.46\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-ca-sSRR18680446.png}
         \captionof{figure}{Krona for sample SRR18680446}
         \label{fig:results:real:krona-ca-a}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.44\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-ca-sSRR18680489.png}
         \captionof{figure}{Krona for sample SRR18680489}
         \label{fig:results:real:krona-ca-b}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.44\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-ca-all.png}
         \captionof{figure}{Krona for all aggregated samples}
         \label{fig:results:real:krona-ca-c}
         \end{subfigure}
-        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the Canadian dataset (PRJNA824537).}
+        \caption{Krona chart visualizing the abundances of species in wastewater samples from the Canadian dataset (PRJNA824537).}
     \end{figure}
     
     Regarding results on SARS-CoV-2 lineages abundances, for the dataset from Ontario, Canada (PRJNA824537), there were readable plots generated by Freyja (\cref{fig:results:real:ca-freyja-samples},\ref{fig:results:real:ca-freyja-daily}). In \cref{fig:results:real:ca-freyja-samples}, one can see all samples represented by bars (one bar per sample). However, they are not in order of collecting date and time, which makes it difficult to interpret. One can see that some of the samples contain abundant Omicron lineage, and some other samples have abundant Delta. Nevertheless, it is the general picture of lineages abundance among samples. \Cref{fig:results:real:ca-freyja-daily}, in contrast, represents trends and changes in lineage abundances over time. Delta was a prevalent lineage at the beginning of December 2021, while from the mid of December 2021, Omicron began to be most predominant, and its abundance increased significantly up to around 0.9 lineage abundance proportion in February 2022. It's worth noting that Freyja always detected other lineages in samples, except Omicron and Delta, although in small proportions, around 0.05.
     
-    \begin{figure}[H]
+    \begin{figure}[ht!]
         \centering
         \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/ca-freyja-samples.png}
@@ -258,26 +255,26 @@ In the following sections, the results of downstream data analysis will be shown
         \label{fig:results:real:ca-freyja-daily}
         \end{subfigure}
         \hfill
-        \captionof{figure}{Variant prevalence computed by Freyja over samples, produced by Freyja on Ontario, Canada (PRJNA824537).}
+        \caption{Variant prevalence computed by Freyja over samples, produced by Freyja on Ontario, Canada (PRJNA824537).}
     \end{figure}
     
-    To compare results on the Canadian (PRJNA824537) dataset from both Freyja and COJAC branches of Galaxy workflow, two bar plots were considered: one generated by Freyja (\cref{fig:results:real:ca-freyja-monthly}), one generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:ca-cojac-monthly}). Links to Jupyter notebooks with visualisations of results on real datasets created for this thesis are provided in \cref{sec:appendix:real-visualize}.
+    To compare results on the Canadian (PRJNA824537) dataset from both Freyja and COJAC branches of Galaxy workflow, two bar plots were considered: one generated by Freyja (\cref{fig:results:real:ca-freyja-monthly}), one generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:ca-cojac-monthly}). Links to Jupyter notebooks with visualizations of results on real datasets created for this thesis are provided in \cref{sec:appendix:real-visualize}.
     
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.6\textwidth}
+        \begin{subfigure}[b]{0.5\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/ca-freyja-monthly.png}
         \captionof{figure}{Bar plot generated by Freyja.}
         \label{fig:results:real:ca-freyja-monthly}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.7\textwidth}
+        \begin{subfigure}[b]{0.6\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/ca-cojac-monthly.png}
         \captionof{figure}{Bar plot generated from COJAC output using Python.}
         \label{fig:results:real:ca-cojac-monthly}
         \end{subfigure}
         \hfill
-        \captionof{figure}{Bar plot with sample collection time information grouped by month, for the Canadian (PRJNA824537) dataset.}
+        \caption{Bar plot with sample collection time information grouped by month, for the Canadian (PRJNA824537) dataset.}
     \end{figure}
     
     Results on the Canadian (PRJNA824537) dataset from Freyja and COJAC differ, as shown in \cref{fig:results:real:ca-freyja-monthly}, \ref{fig:results:real:ca-cojac-monthly}. However, the prevalence of Delta in November and December 2021 and the prevalence of Omicron in January and February 2022 are discerned by both methods. Another interesting observation is that Freyja found the Omicron variant already in December 2021, while COJAC was able to detect Omicron only in January 2022.
@@ -289,24 +286,24 @@ In the following sections, the results of downstream data analysis will be shown
     
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-us-sSRR17578350.png}
         \captionof{figure}{Krona for sample SRR17578350}
         \label{fig:results:real:krona-us-a}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-us-sSRR18300811.png}
         \captionof{figure}{Krona for sample SRR18680489}
         \label{fig:results:real:krona-us-b}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.47\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-us-sSRR20997582.png}
         \captionof{figure}{Krona for sample SRR20997582}
         \label{fig:results:real:krona-us-c}
         \end{subfigure}
-        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the US dataset (PRJNA765346).}
+        \caption{Krona chart visualizing the abundances of species in wastewater samples from the US dataset (PRJNA765346).}
     \end{figure}
     
     As for results on lineage abundances received for the US (PRJNA765346) dataset, the distribution of SARS-CoV-2 lineages over time binned by the day, obtained in Freyja-based branch of the workflow, is depicted in \cref{fig:results:real:us-freyja-daily}.
@@ -320,9 +317,9 @@ In the following sections, the results of downstream data analysis will be shown
     
     \Cref{fig:results:real:us-freyja-daily} shows curious results. Delta was found by Freyja in samples of the US dataset only in November 2021. From January to March 2022, Omicron (BA.1 sub-lineage) was prevalent, accompanied by other lineages found in samples but grouped into “Other” lineages. From April to June 2022, the BA.2 sub-lineage of Omicron was common in the US dataset. Finally, by September 2022, Omicron BA.1 took the prevalence back, with about 0.6 proportion against 0.4 for other lineages.
 
-    To compare results on the US (PRJNA765346) dataset from both Freyja and COJAC branches of Galaxy workflow, there were two bar plots created: one was generated by Freyja  (\cref{fig:results:real:us-freyja-monthly}), while the other was generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:us-cojac-monthly})). Links to Jupyter notebooks with visualisations of results on real datasets created for this thesis are provided in \cref{sec:appendix:real-visualize}.
+    To compare results on the US (PRJNA765346) dataset from both Freyja and COJAC branches of Galaxy workflow, there were two bar plots created: one was generated by Freyja  (\cref{fig:results:real:us-freyja-monthly}), while the other was generated from COJAC results using Matplotlib Python library with the same color scheme (\cref{fig:results:real:us-cojac-monthly})). Links to Jupyter notebooks with visualizations of results on real datasets created for this thesis are provided in \cref{sec:appendix:real-visualize}.
     
-    \begin{figure}[H]
+    \begin{figure}[ht!]
         \centering
         \begin{subfigure}[b]{1\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/us-freyja-monthly.png}
@@ -336,7 +333,7 @@ In the following sections, the results of downstream data analysis will be shown
         \label{fig:results:real:us-cojac-monthly}
         \end{subfigure}
         \hfill
-        \captionof{figure}{Bar plot with sample collection time information grouped by month, for US (PRJNA765346) dataset.}
+        \caption{Bar plot with sample collection time information grouped by month, for US (PRJNA765346) dataset.}
     \end{figure}
     
     Results from Freyja and COJAC on the US dataset are obviously not the same. The curious fact is detecting the considerable prevalence of the Delta lineage in summer 2022 by COJAC and not detecting it by Freyja. And more expected that both tools found Delta at the end of 2021 and the prevalence of Omicron (both BA.1 and BA.2 sub-lineages) in 2022. Interestingly, the BA.1 lineage was prevalent from January to March 2022, while BA.2 from April to June 2022.
@@ -348,24 +345,24 @@ In the following sections, the results of downstream data analysis will be shown
     
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b]{0.42\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-uk-sERR5014633.png}
         \captionof{figure}{Krona for sample ERR5014633}
         \label{fig:results:real:krona-uk-a}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.52\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-uk-sERR5014683.png}
         \captionof{figure}{Krona for sample ERR5014683}
         \label{fig:results:real:krona-uk-b}
         \end{subfigure}
         \hfill
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=1\textwidth]{figures/results/real/krona/krona-uk-all.png}
         \captionof{figure}{Krona for all aggregated samples}
         \label{fig:results:real:krona-uk-c}
         \end{subfigure}
-        \captionof{figure}{Krona chart visualizing the abundances of species in wastewater samples from the UK dataset (PRJEB42191).}
+        \caption{Krona chart visualizing the abundances of species in wastewater samples from the UK dataset (PRJEB42191).}
     \end{figure}
     
     The same as to the Californian dataset, for the UK dataset, Freyja labeled all detected variants as “Other”; hence, only non-informative non-interactive plots were generated. Even though Freyja has a limitation while producing an interactive dashboard for too many lineages, for the UK dataset (PRJEB42191), the interactive dashboard was generated (Fig.10). According to the graph, eight lineages were clearly detected by Freyja: i) B.27 that is described in Pango database as “UK lineage, Curacao, Switzerland”; ii) B.23 that was discovered in UK and Portugal; iii) B.12 (Japanese lineage), iv) B.1.14 (USA lineage, California); v) B, one of the two original haplotypes of the pandemic (and first to be discovered); vi) B.1.1.161 (Saudi lineage); vii) B.1.1.514 (US lineage); viii) B.1.1.301 (UK lineage). 
@@ -378,9 +375,4 @@ In the following sections, the results of downstream data analysis will be shown
     \end{figure}
     
     Looking at \cref{fig:results:real:uk-freyja-dash}, one can see the prevalence of different lineages over the sample collection time period, from 30 March to 12 May 2020. Detection of B.1.1.514 and B.1.1.301 lineages already at the end of March 2020 (more precisely, in samples collected on 31 March, as well as on 6, 16, and 20 April 2020) is worth mentioning because in Pango database \cite{covlineages} the earliest dates of registration for these lineages is 1 and 22 May 2020, respectively. This fact proves earlier detection within wastewater surveillance over clinical surveillance.
-
-
-
-
-
 \clearpage

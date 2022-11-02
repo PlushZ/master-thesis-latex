@@ -26,19 +26,19 @@ From the beginning of the COVID-19 pandemic, several approaches have been presen
         
         Similarly to Freyja, COJAC is able to detect outbreaks more than two weeks before the first positive clinical tests were reported. Compared to the Freyja tool, COJAC results can be used for downstream analysis that afterward can be imported to CoV-spectrum \cite{chen2022b}, an interactive platform aiming to assist scientists in investigating and identifying SARS-CoV-2 variants, and it can be interesting for researchers and scientists that need more details about not only the names of SARS-CoV-2 lineages, that are listed in UShER phylogenetic tree but also new variants that are yet unknown. The usage of CoV-Spectrum tool for downstream analysis is supposed to be up-to-date and to show dynamics. This can be used to give information about new variants and new patterns that can be described as suspicious.
         \paragraph{LCS}
-        Another tool that estimates the relative frequencies of SARS-CoV-2 variants in pooled samples, LCS \cite{valieris2022}, uses a statistical model. The model takes into account previously defined genomic polymorphisms that characterize SARS-CoV-2 variants. The tool supports both raw sequencing reads for polymorphism-based markers calling and predefined markers in the \acrlong{vcf}.
+        Another tool that estimates the relative frequencies of SARS-CoV-2 variants in pooled samples, LCS \cite{valieris2022}, uses a statistical model. The model takes into account previously defined genomic polymorphisms that characterize SARS-CoV-2 variants. The tool supports both raw sequencing reads for polymorphism-based markers calling and predefined markers in the \acrlong{vcf}. Similarly to Freyja, LCS tool uses Pango designation, and it is able to use UShER bar codes which is not the case for COJAC.
         \paragraph{Kallisto}
         Among other methods, Kallisto \cite{bray2016} was initially developed for quantifying abundances of transcripts from RNA-Seq data, or, more generally, of target sequences using high-throughput sequencing reads. It is based on the idea of pseudoalignment for rapidly determining the compatibility of reads with targets, without the need for alignment. 
         
-        Recently, Kallisto tool was repurposed to analyze SARS-CoV-2 in wastewater samples \cite{baaijens2021,kallisto2022}. Due to the genome's division into regions that code different proteins, it was thought that it should only be sequenced in the region that codes the spike protein, which is used by the virus to attach to its hosts. Sites on the spike and nucleocapsid proteins are mainly affected by adaptive evolution in SARS-CoV-2 \cite{rochman2021}. As a viral nucleocapsid protein, it binds to the genomic RNA sequence and enters the host cell. As long as Kallisto is used on those regions, the algorithm is able to distinguish virus variants. Both \cite{baaijens2021} and \cite{anton2022} provide confirmation of this since the region coding for spike protein seems to fit better in the algorithm than sequencing the whole genome. However, Kallisto has limited capability to detect clinical variants with a frequency of <10\%, and background noise was observed to be 0.01-0.09\% \cite{baaijens2021}.
+        In spite of tools listed above, Freyja, COJAC, and LCS, Kallisto initially was not developed with focus on SARS-CoV-2. Recently, Kallisto tool was repurposed to analyze SARS-CoV-2 in wastewater samples \cite{baaijens2021,kallisto2022}. Due to the genome's division into regions that code different proteins, it was thought that it should only be sequenced in the region that codes the spike protein, which is used by the virus to attach to its hosts. Sites on the spike and nucleocapsid proteins are mainly affected by adaptive evolution in SARS-CoV-2 \cite{rochman2021}. As a viral nucleocapsid protein, it binds to the genomic RNA sequence and enters the host cell. As long as Kallisto is used on those regions, the algorithm is able to distinguish virus variants. Both \cite{baaijens2021} and \cite{anton2022} provide confirmation of this since the region coding for spike protein seems to fit better in the algorithm than sequencing the whole genome. However, Kallisto has limited capability to detect clinical variants with a frequency of <10\%, and background noise was observed to be 0.01-0.09\% \cite{baaijens2021}.
         \paragraph{Alcov}
-        A tool called Alcov \cite{ellmen2021} is another option for learning the abundance of SARS-CoV-2 variants. For each mutation, Alcov calculates its frequency as the number of single-nucleotide variants divided by the number of reads covering that base. The Alcov algorithm only considers locations with at least 40 reads of coverage in order to reduce the variance of the estimates. Whenever a mutation contains multiple nucleotide polymorphisms, Alcov assigns its prevalence to the nucleotide polymorphism with the highest frequency. \acrfull{ols}, a well-studied problem in statistics that can be solved efficiently, are used to calculate relative abundance for each \acrfull{voc} lineage. 
+        A tool called Alcov \cite{ellmen2021} is another option for learning the abundance of SARS-CoV-2 variants. For each mutation, Alcov calculates its frequency as the number of single-nucleotide variants divided by the number of reads covering that base. The Alcov algorithm only considers locations with at least 40 reads of coverage in order to reduce the variance of the estimates. Whenever a mutation contains multiple nucleotide polymorphisms, Alcov assigns its prevalence to the nucleotide polymorphism with the highest frequency. \acrfull{ols}, a well-studied problem in statistics that can be solved efficiently, are used to calculate relative abundance for each \acrfull{voc} lineage. As COJAC, Alcov works with amplicons. When comparing Alcov method with COJAC approach, Alcov considers reads carrying mutations when estimating lineages cooccurrences, while COJAC considers amplicons carrying mutations.
         \paragraph{SAM Refiner}
-        A further method called SAM Refiner is a part of the workflow developed by Devon A. Gregory et al. \cite{gregory2021} based on amplicon sequencing of SARS-CoV-2 spike domains in order to track viral populations in wastewater. In June 2021, Devon A. Gregory and colleagues were able to detect the appearance of two variants of concern, Alpha and Gamma, and their displacement of the D614G B.1 variant in a Missouri sewer shed with the help of SAM Refiner. This tool can report novel variants and remove chimeric sequences generated by \acrshort{pcr}. 
+        A further method called SAM Refiner is a part of the workflow developed by Devon A. Gregory et al. \cite{gregory2021} based on amplicon sequencing of SARS-CoV-2 spike domains in order to track viral populations in wastewater. In June 2021, Devon A. Gregory and colleagues were able to detect the appearance of two variants of concern, Alpha and Gamma, and their displacement of the D614G B.1 variant in a Missouri sewer shed with the help of SAM Refiner. This tool can report novel variants and remove chimeric sequences generated by \acrshort{pcr}. Comparing SAM Refiner with above listed methods, SAM Refiner has a feature of removing errors associated with PCR, such as single-nucleotide polymorphisms (SNPs) and chimeric sequences which is not suggested by Freyja, COJAC, Kallisto, and Alcov tool. Moreover, by using this tool, variant reports are generated that include SNPs, multiple nucleotide polymorphisms (MNPs), insertions, deletions, and downstream amino acid changes, as well as PCR-created chimeric sequences are removed. 
         
         \subsubsection{Standalone pipelines} \label{sec:prior:methods:pipelines}
         \paragraph{Pipeline proposed by Pipes et al.}
-        In the method proposed by Pipes et al. \cite{pipes2022}, unlikely lineages are initially removed, missing nucleotides are imputed using the global SARS-CoV-2 phylogeny, and the proportion of lineages is estimated using an Expectation-Maximization algorithm \cite{dempster1977}. There are two components of the method: estimating proportions of SARS-CoV-2 lineages and imputation of SARS-CoV-2 reference lineages.
+        In the method proposed by Pipes et al. \cite{pipes2022}, unlikely lineages are initially removed, missing nucleotides are imputed using the global SARS-CoV-2 phylogeny, and the proportion of lineages is estimated using an Expectation-Maximization algorithm \cite{dempster1977}. There are two components of the method: estimating proportions of SARS-CoV-2 lineages and imputation of SARS-CoV-2 reference lineages. The imputation component is a specificity of the method proposed by Pipes et al., compared to other methods described above, like Freyja, COJAC, SAM Refiner, etc. This component's purpose is to reduce a problem when estimating the fraction of different SARS-CoV-2 strains. A problem can arise because a large number of SARS-CoV-2 sequences submitted to public databases contain missing data (i.e., bases that are not coded as A, G, C, or T). Thus, when compared to sequencing reads, strains with a high proportion of missing data will contain fewer nucleotide differences. While using an imputation approach, it is possible to allow for a like-to-like comparison of reads against all reference strains. The method was initially applied to wastewater samples collected across the San Francisco Bay Area and showed promising results.
         \paragraph{Gromstole}
         Yet another concept for estimating the relative frequencies of different SARS-CoV-2 lineages in wastewater samples is pipeline Gromstole \cite{gromstole2022}. Gromstole provides a set of scripts, including a Python script for rapidly extracting coverage and mutation frequency statistics from the reference mapping program minimap \cite{li2018}, and an R script that estimates the frequency of a variant of concern from the frequencies of mutations associated with the constellation file, using quasibinomial regression. The other R script is used to visualize variant frequency estimates across a set of samples.
         \paragraph{AG}
@@ -121,119 +121,40 @@ From the beginning of the COVID-19 pandemic, several approaches have been presen
         
         
         \subsubsection{Comparison of methods for wastewater surveillance}
-        To compare the existing tools and pipelines representing different state-of-the-art approaches, \cref{tab:prior:methods} shows some of them accompanied by description of inputs, produced outputs, type of provided licence, precence in Galaxy, and prior usage.
-        
-        \begin{table}[ht!]
-            \centering
-            \small
-            \begin{tblr}{l|ll}
-             \textbf{Name}          & \textbf{Output} \\     \hline 
-            \textbf{Freyja \cite{joshuailevy2022}}         & a \acrshort{tsv} file that includes the lineages present, their corresponding\\
-                                    & abundances, and summarization by constellation.\\
-                                    & Additional option: a fast bootstrapping method for Freyja which\\
-                                    & results in two output files base-name-lineages.csv and\\
-                                    & base-name\_summarized.csv, which contain the 0.025, 0.05,0.25,0.5\\
-                                    & (median),0.75, 0.95, and 0.975 percentiles for each lineage and\\
-                                    & \acrshort{who} designated \acrshort{voi}/\acrshort{voc}, respectively, as obtained via the bootstrap.\\
-                                    & They also provide the --eps, --barcodes, and --meta options as in\\
-                                    & Freyja demix. We now also provide a --boxplot option, which should\\
-                                    & be specified in the form --boxplot pdf if you want the boxplot in\\
-                                    & pdf format.\\ \hline[dashed]
-            \textbf{COJAC \cite{cojac2022}}          & - total count of amplicons carrying the sites of interest;\\
-                                    & - amplicons carrying mutations on all sites of interest (e.g.: variant\\
-                                    & mutations observed on all sites);\\
-                                    & - amplicons where one mutation is missing (e.g.: only 2 out of 3 sites\\
-                                    & carried the variant mutation, 1 site carries wild-type);\\
-                                    & - fraction (ratio of number of all amplicons carrying mutations on all\\
-                                    & sites of interest to the total number of amplicons carrying cites of\\
-                                    & interest) or empty if no counts;\\
-                                    & - number of a considered sites (e.g.: 2 sites of interests) or empty if\\
-                                    & no counts.\\  \hline[dashed]
-            \textbf{LCS \cite{valieris2022}}            &- lineage deComposition outputs for SARS-CoV-2 pooled samples\\
-                                    & - plots file of Python format \\ \hline[dashed]
-            \textbf{Kallisto \cite{bray2016}}       & -abundance.h5 is an \acrshort{hdf5} binary file containing run info, abundance\\
-                                    & estimates, bootstrap estimates, and transcript length\\
-                                    & information length. This file can be read by sleuth\\
-                                    & -abundance.tsv is a plaintext file of the abundance estimates. It\\
-                                    & does not contain bootstrap estimates. Please use the --plaintext mode\\
-                                    & to output plaintext abundance estimates. Alternatively, Kallisto h5dump\\
-                                    & can be used to output an \acrshort{hdf5} file to plaintext. The first line\\
-                                    & contains a header for each column, including estimated counts,\\
-                                    & and effective length.\\
-                                    & -run\_info.json is a \acrshort{json} file containing information about the run\\  \hline[dashed]
-            \textbf{Alcov \cite{ellmen2021}}          & - the number of reads with and without each mutation in each sample;\\
-                                    & - heatmap showing the frequencies for all samples;\\
-                                    & - mutations.txt;\\
-                                    & - read depth for each amplicon;\\
-                                    & - Plotting amplicon \acrshort{gc} content against amplicon depth\\  \hline[dashed]
-            \end{tblr}
-         \end{table}
-         \begin{table}[ht!]
-            \centering
-            \small
-            \begin{tblr}{l|ll}
-             \textbf{Name}          & \textbf{Output} \\     \hline 
-            \textbf{Pipes et al. \cite{pipes2022}}   & - estimated proportion of candidate strains in .csv file\\
-                                    & - barplot in the .pdf file. Only those strains with an estimated\\
-                                    & proportion larger than 1\% will appear in this plot;\\
-                                    & - for unidentifiable strains, groups of unidentifiable strains will\\
-                                    & be printed to a .txt file. If there is no identifiability issue,\\
-                                    & this .txt file will not be produced.\\  \hline[dashed]
-            \textbf{SAM refiner \cite{gregory2021}}    & - SAM Refiner: \acrshort{sam} Processing produces 4 \acrfull{tsv} files\\
-                                    & that can be read by any standard spreadsheet software;\\
-                                    & - SAM Refiner: Chimera Removal produces \acrshort{tsv} files - unique sequences;\\
-                                    & statistics about removed chimera; covariant deconvolution output;\\
-                                    & - \acrshort{xlsx} file - assigned sequences to known variant lineages or the\\
-                                    & reference based on polymorphisms present. Polymorphisms were\\
-                                    & considered for lineage assignment if they appeared in multiple\\
-                                    & sequencing runs or were known to be present in circulating populations\\
-                                    & reported to GSIAD (https://www.gisaid.org/)\\  \hline[dashed]
-            \textbf{Gromstole \cite{gromstole2022}}      & - counts of each mutation of the lineages;\\
-                                    & - coverage at every position on the reference genome;\\
-                                    & - metadata;\\
-                                    & - estimate of the proportion (including 95\% confidence interval);\\
-                                    & - lineage name;\\
-                                    & - name of the input directory\\  \hline[dashed]
-            \textbf{AG \cite{nguessan2022}}             & VarScan .tab files (tab-delimited) and common\_depth\_report.csv\\  \hline[dashed]
-            \textbf{Lineagespot \cite{pechlivanis2022}}    & - \acrshort{vcf}, \acrshort{maf};\\
-                                    & - tab-delimited file (\acrshort{tsv} file) containing the most probable lineages\\
-                                    & that have been found   \\  \hline[dashed]
-            \end{tblr}
-         \end{table}
-         \begin{table}[ht!]
-            \centering
-            \small
-            \begin{tblr}{l|ll}
-             \textbf{Name}          & \textbf{Output} \\     \hline 
-            \textbf{PiGx \cite{schumann2021}}           & -overview report including:\\
-                                    & --Visualization of the development of SARS-CoV-2 variants and mutations\\
-                                    & over time and locations from all samples provided.\\
-                                    & --Quality Control report per sample: number of covered amplicons, read\\
-                                    & coverage, and MultiQC report for raw and trimmed reads\\
-                                    & --Variants report per sample: variant analysis of SARS-CoV-2 from each\\
-                                    & wastewater sample and identification of variants of concern\\
-                                    & --Taxonomic classification: a table and pie chart of the species found\\
-                                    & in the unaligned reads\\
-                                    & -\acrshort{sam} / \acrshort{bam} files per sample: aligned and unaligned reads against\\
-                                    & SARS-CoV-2\\
-                                    & -\acrshort{vcf} / \acrshort{csv} files per sample: listing all detected single nucleotide\\
-                                    & variants (\acrshort{snvs}) from the aligned reads\\
-                                    & -\acrshort{vep} reports per sample as \acrshort{txt} / \acrshort{html}: report files show the \acrshort{vep} output\\
-                                    & including the uploading variants, including amino acid changes and\\
-                                    & consequences for the corresponding protein\\
-                                    & -Kraken2 files per sample (\acrshort{txt}): provides an overview of all found\\
-                                    & species in the unaligned reads together with the NCBI taxonomy ID\\
-                                    & -log files for all major analysis steps performed by the pipeline\\  \hline[dashed]
-            \textbf{Cowwid \cite{jahn2021}}         & - co-occurance table;\\
-                                    & - variant mutations table;\\
-                                    & - plots integrated to CoV-Spectrum.\\  \hline[dashed]
-            \textbf{Izquierdo-}     & \acrshort{vcf}, \acrshort{maf} files; \\    
-            \textbf{Lara et al. \cite{izquierdo}}    & - Trees visualisation (Fig tree);\\
-                                    & - clades assignment \\  \hline
+        To compare the existing tools and pipelines representing different state-of-the-art approaches, \cref{tab:prior:methods-tools} for individual tools and \cref{tab:prior:methods-pipelines} for standalone pipelines show some of them accompanied by source code link, license type, external tools used, description of inputs, produced outputs, their availability in Bioconda, availability in Galaxy before starting this thesis, and, finally, their prior usage (applications).
+        \begin{landscape}
+            \centering\vspace*{\fill}
+                \begin{table}[ht!]
+                \tiny
+                \begin{tabular}{l|l|l|l|l|l|l|l|l|l}
+\multicolumn{1}{m{1cm}|}{\textbf{Name}}&\multicolumn{1}{m{1cm}|}{\textbf{Source code}}&\multicolumn{1}{m{1cm}|}{\textbf{License}}&\multicolumn{1}{m{3cm}|}{\textbf{Goal}}&\multicolumn{1}{m{3cm}|}{\textbf{External tools plugged}}&\multicolumn{1}{m{3cm}|}{\textbf{Input}}&\multicolumn{1}{m{3cm}|}{\textbf{Output}}&\multicolumn{1}{m{1cm}|}{\textbf{Available in Bioconda}}&\multicolumn{1}{m{1cm}|}{\textbf{Available in Galaxy}}&\multicolumn{1}{m{1cm}}{\textbf{Applications}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Freyja}}&\multicolumn{1}{m{1cm}|}{\cite{joshuailevy2022}}&\multicolumn{1}{m{1cm}|}{BSD-2-Clause (open source)}&\multicolumn{1}{m{3cm}|}{Recover relative lineage abundances from mixed SARS-CoV-2 samples from a sequencing dataset (BAM aligned to the Hu-1 reference)}&\multicolumn{1}{m{3cm}|}{-}&\multicolumn{1}{m{3cm}|}{Variant call and sequencing depth information}&\multicolumn{1}{m{3cm}|}{TSV file that includes the lineages present, their corresponding abundances, and summarization by constellation}&\multicolumn{1}{m{1cm}|}{+}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{karthikeyan2022,solismoreira2022,nutrition2022,karthikeyan2022b}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{COJAC}}&\multicolumn{1}{m{1cm}|}{\cite{cojac2022}}&\multicolumn{1}{m{1cm}|}{GPL-3.0 (open source)}&\multicolumn{1}{m{3cm}|}{Analyzing co-occurrence of mutations on amplicons}&\multicolumn{1}{m{3cm}|}{-}&\multicolumn{1}{m{3cm}|}{BAM/CRAM/SAM and BED file describing the amplified regions}&\multicolumn{1}{m{3cm}|}{Total count of amplicons carrying the sites of interest, amplicons carrying mutations on all site of interest, amplicons where one mutation is missing, fraction (ratio of number of all amplicons carrying mutations on all sites of interest to total number of amplicons carrying cites of interest) }&\multicolumn{1}{m{1cm}|}{+}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{jahn2022,jbc,karthikeyan2022b}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{LCS}}&\multicolumn{1}{m{1cm}|}{\cite{valieris2022}}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{3cm}|}{Lineage decomposition for SARS-CoV-2 pooled samples}&\multicolumn{1}{m{3cm}|}{-}&\multicolumn{1}{m{3cm}|}{Variant-groups definitions, raw-fastq files pooled samples, fasta file of the primers used}&\multicolumn{1}{m{3cm}|}{Lineage decomposition outputs for SARS-CoV-2 pooled samples, plots}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{valieris2022,karthikeyan2022b}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Kallisto}}&\multicolumn{1}{m{1cm}|}{\cite{bray2016}}&\multicolumn{1}{m{1cm}|}{ BSD-2-Clause (open source)}&\multicolumn{1}{m{3cm}|}{Quantifying abundances of transcripts from RNA-Seq data, or more generally of target sequences using high-throughput sequencing reads}&\multicolumn{1}{m{3cm}|}{-}&\multicolumn{1}{m{3cm}|}{FASTQ (single-end or paired-end reads)}&\multicolumn{1}{m{3cm}|}{Abundance estimates, bootstrap estimates, and transcript length information length}&\multicolumn{1}{m{1cm}|}{+}&\multicolumn{1}{m{1cm}|}{+}&\multicolumn{1}{m{1cm}}{\cite{baaijens2021,anton2022}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Alcov}}&\multicolumn{1}{m{1cm}|}{\cite{ellmen2021}}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{3cm}|}{Abundance learning for SARS-CoV-2 variants.}&\multicolumn{1}{m{3cm}|}{-}&\multicolumn{1}{m{3cm}|}{BAM file of reads aligned to the SARS-CoV-2 reference genome}&\multicolumn{1}{m{3cm}|}{Number of reads with and without each mutation in each sample, heatmap showing the frequencies for all samples, mutations, read depth for each amplicon, plots of amplicon GC content against amplicon depth}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{ellmen2021}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{SAM refiner}}&\multicolumn{1}{m{1cm}|}{\cite{gregory2021}}&\multicolumn{1}{m{1cm}|}{GPL-3.0 (open source)}&\multicolumn{1}{m{3cm}|}{Gathering variant information from a SAM formatted files}&\multicolumn{1}{m{3cm}|}{-}&\multicolumn{1}{m{3cm}|}{SAM formatted files generated from sequencing mapping programs such as Bowtie2 or MiniMap2, FASTA formatted file for a reference sequence}&\multicolumn{1}{m{3cm}|}{Unique sequences, statistics about removed chimera, covariant deconvolution output}&\multicolumn{1}{m{1cm}|}{+}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{gregory2021,gregory2022,yaglom2022}}\\ \hline 
+\end{tabular}
+                \caption{Comparison table of existing individual tools for wastewater surveillance} \label{tab:prior:methods-tools}
+                \end{table}
 
-            \end{tblr}
-            \caption{List of existing methods for wastewater surveillance} \label{tab:prior:methods}
-        \end{table}
+\begin{table}[ht!]
+                \tiny
+                \begin{tabular}{l|l|l|l|l|l|l|l|l|l}
+\multicolumn{1}{m{1cm}|}{\textbf{Name}}&\multicolumn{1}{m{1cm}|}{\textbf{Source code}}&\multicolumn{1}{m{1cm}|}{\textbf{License}}&\multicolumn{1}{m{3cm}|}{\textbf{Goal}}&\multicolumn{1}{m{3cm}|}{\textbf{External tools plugged}}&\multicolumn{1}{m{3cm}|}{\textbf{Input}}&\multicolumn{1}{m{3cm}|}{\textbf{Output}}&\multicolumn{1}{m{1cm}|}{\textbf{Available in Bioconda}}&\multicolumn{1}{m{1cm}|}{\textbf{Available in Galaxy}}&\multicolumn{1}{m{1cm}}{\textbf{Applications}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Pipes et al.}}&\multicolumn{1}{m{1cm}|}{\cite{pipes2022}}&\multicolumn{1}{m{1cm}|}{GPL-3.0 (open source)}&\multicolumn{1}{m{3cm}|}{Estimating the relative proportions of SARS-CoV-2 strains from wastewater samples}&\multicolumn{1}{m{3cm}|}{Bowtie2}&\multicolumn{1}{m{3cm}|}{FASTA file; MSA FASTA of SARS-CoV-2 reference strains}&\multicolumn{1}{m{3cm}|}{Estimated proportion of candidate strains, barplot with only those strains with an estimated proportion larger than 1\%}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{pipes2022}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Grom- stole}}&\multicolumn{1}{m{1cm}|}{\cite{gromstole2022}}&\multicolumn{1}{m{1cm}|}{MIT (open source)}&\multicolumn{1}{m{3cm}|}{To estimate the relative frequencies of different SARS-CoV-2 lineages}&\multicolumn{1}{m{3cm}|}{Minimap2, Cutapapt}&\multicolumn{1}{m{3cm}|}{Paired-end reads in separate FASTQ/FASTA files, NC043312.fa as a reference genome}&\multicolumn{1}{m{3cm}|}{Counts of each mutation of the lineages, coverage at every position on the reference genome, estimate of the proportion (including 95\% confidence interval); }&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{gromstole2022}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{AG}}&\multicolumn{1}{m{1cm}|}{\cite{nguessan2022}}&\multicolumn{1}{m{1cm}|}{GPL-3.0 (open source)}&\multicolumn{1}{m{3cm}|}{Analyzing the within-sample genetic diversity of SARS-CoV-2 in Wastewater samples.}&\multicolumn{1}{m{3cm}|}{Trim Galore, minimap2, SAMtools, iVar, BEDTools, Picard, FreeBayes, SnpEff}&\multicolumn{1}{m{3cm}|}{Paired-end .fastq files for each sample}&\multicolumn{1}{m{3cm}|}{Tabular files with scanned variants, common depth report}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{nguessan2022}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Lineage- spot}}&\multicolumn{1}{m{1cm}|}{\cite{pechlivanis2022}}&\multicolumn{1}{m{1cm}|}{MIT (open source)}&\multicolumn{1}{m{3cm}|}{Identify SARS-CoV-2 related mutations based on a single (or a list) of variant(s) file(s) (i.e., variant calling format).}&\multicolumn{1}{m{3cm}|}{Trim Galore, FastQC, minimap2, SAMtools, BEDTools, Picard, FreeBayes, SnpEff}&\multicolumn{1}{m{3cm}|}{Raw fastq FASTQ files, anf for further analysis - VCF and file containing all lineage-assignment rules, as retrieved from the pangolin tool repository}&\multicolumn{1}{m{3cm}|}{VCF, MAF files, eport about lineage abundances}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{pechlivanis2022}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{PiGx}}&\multicolumn{1}{m{1cm}|}{\cite{schumann2021}}&\multicolumn{1}{m{1cm}|}{GPL-3.0 (open source)}&\multicolumn{1}{m{3cm}|}{Analyzing data from sequenced wastewater samples and identifying given lineages of SARS-CoV-2}&\multicolumn{1}{m{3cm}|}{iVAR, fastp, BWA, MultiQC, LoFreq, VEP , Kraken2, Krona}&\multicolumn{1}{m{3cm}|}{Raw reads and the additional information about used primers and adapters}&\multicolumn{1}{m{3cm}|}{VCF, visualization of the development of virus over time, variants report, taxonomic classification}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{schumann2021}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Cowwid}}&\multicolumn{1}{m{1cm}|}{\cite{jahn2021}}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{3cm}|}{Surveillance of SARS-CoV-2 genomic variants in wastewater}&\multicolumn{1}{m{3cm}|}{V-pipe, FastQC, PRINSEQ, VICUNA, BWA-MEM, ShoRAH, COJAC}&\multicolumn{1}{m{3cm}|}{TSV table of the samples, YAML with definition of the variants, BED with amplicon positions for ARTIC, BED with amplicon description}&\multicolumn{1}{m{3cm}|}{YAML/CSV files with coocurrences, variant mutations table, plts to integrate to CoV-Spectrum}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{jahn2021,swisscovspectrum}}\\ \hline 
+\multicolumn{1}{m{1cm}|}{\textbf{Izquierdo -Lara et al.}}&\multicolumn{1}{m{1cm}|}{\cite{izquierdo}}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{3cm}|}{Monitoring SARS-CoV-2 Circulation and Diversity through Community Wastewater Sequencing, the Netherlands and Belgium}&\multicolumn{1}{m{3cm}|}{Porechop, Cutadapt, UGENE, Fastp, BWA-MEM, FreeBayes, iVar}&\multicolumn{1}{m{3cm}|}{Raw reads and the additional information about used primers and adapters}&\multicolumn{1}{m{3cm}|}{VCF, MAF files, Trees visualization (Fig tree)}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}|}{-}&\multicolumn{1}{m{1cm}}{\cite{izquierdo}}\\ \hline 
+                \end{tabular}
+                \caption{Comparison table of existing standalone pipelines for wastewater surveillance} \label{tab:prior:methods-pipelines}
+                \end{table}
+                \vfill
+            \end{landscape}
+        
 
     \subsection{Discussion of existing methods} \label{sec:prior:discussion}
     A number of methods were described above that use different models to determine SARS-CoV-2 lineages and their abundances in wastewater samples. Several of the methods listed can be applied to the purpose of this thesis, i.e., improvement of existing Galaxy workflows for analyzing SARS-CoV-2 clinical samples, repurposing them to detection of SARS-CoV-2 variants in wastewater samples as well as discerning of lineage abundances in these samples. It should be pointed out that, in \cref{sec:prior:methods:tools}, separate tools are listed that focus directly on lineage abundance computation, whereas, in \cref{sec:prior:methods:pipelines}, complete and almost complete standalone pipelines like PiGx, Lineagespot, Cowwid, etc. are listed that include the entire raw reads bioinformatics analysis. Standalone pipelines are not intended to be improved in this work. Conversely, individual tools that are capable of being plugged into existing Galaxy workflows and performing lineage abundances computation are the interest of this thesis.
