@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Master Thesis 
 % Polina Polunina
-% October 2022 
+% November 2022 
 %
 % License:
 % CC-BY-SA 4.0 -- Creative Commons Attribution-ShareAlike 4.0 International
@@ -98,6 +98,9 @@
 }
 \usepackage[toc,page]{appendix}
 
+
+\usepackage{afterpage}
+
 %break on URL lower case letters
 \setcounter{biburllcpenalty}{5000}
 \emergencystretch=1em
@@ -156,6 +159,7 @@
 \cleardoublepage
 \include{abstract}
 \include{declaration}
+\include{acknowledgements}
 \clearpage
 \pdfbookmark[1]{\contentsname}{toc}
 \tableofcontents
