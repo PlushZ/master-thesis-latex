@@ -106,8 +106,8 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
                                      & \textbf{Shotgun}             & \textbf{Amplicon-}    & \textbf{Hybrid}           & \textbf{Direct RNA} \\ 
                                      & \textbf{metatranscriptomics} & \textbf{based}        & \textbf{capture-}         & \textbf{sequencing} \\ 
                                      &                              &                       & \textbf{enrichment}       &  \\ \hline
-            Goals                   & \acrshort{sarscov2},             &\acrshort{sarscov2}             & \acrshort{sarscov2}               & \acrshort{sarscov2}, \\
-                                    & host microbiota,                  & genome                        & genome                            & host \\
+            Target                   & \acrshort{sarscov2},             &\acrshort{sarscov2}             & \acrshort{sarscov2}               & \acrshort{sarscov2}, \\
+                                    & host microbiota,                  & sequence                        & sequence                            & host \\
                                     & host response                     &                               &                                   & transcriptome, \\
                                     &  to infection                     &                               &                                   &  epitranscriptome\\ \hline[dashed]
             Co-infection            &  Yes                              &  No                           &    No/yes (depending              & \\
@@ -244,9 +244,9 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
         
         Galaxy offers powerful public computational infrastructures designed specifically for research purposes in the United States, the European Union, and Australia. In the United States, there is the XSEDE \cite{towns2014} consortium; in the European Union, there is the deNBI \cite{elixirde} and ELIXIR \cite{elixir2,elixir} consortiums; and in Australia, there is the Nectar Cloud consortium. Due to their global accessibility, support for diverse configuration schemes (from traditional computational clusters to fully virtualized cloud-like setups), and ability to provide cutting-edge hardware, large-scale public computing resources are well suited to tackling the bioinformatics challenges of the current pandemic. 
         
-        In combination with open-source software tools, this public computational infrastructure offers a complete solution to the SARS-CoV-2 data analytics challenge. Galaxy provides a glue to bind these into a unified analytics platform that manages users, allocates storage, and pairs analysis tools with computational resources fluidly. The platform provides both a graphical user interface and programmatic access in order to accommodate researchers with different degrees of computational expertise. \\
+        In combination with open-source software tools, this public computational infrastructure offers a complete solution to the SARS-CoV-2 data analytics challenge. Galaxy provides a glue to bind these into a unified analytics platform that manages users, allocates storage, and pairs analysis tools with computational resources fluidly. The platform provides both a graphical user interface and programmatic access in order to accommodate researchers with different degrees of computational expertise. 
 
-        \textbf{Four SARS-CoV-2 analysis workflows} \\
+        \paragraph{Four SARS-CoV-2 analysis workflows} 
         
         Based on Galaxy, four workflows were developed aimed at detecting and interpreting sequence variants in SARS-CoV-2 in clinical data. A special webpage was created to track Galaxy efforts on SARS-CoV-2 analysis, workflows, data, and documentation \cite{galaxyproject}. These workflows can be accessed immediately and freely in three global Galaxy instances: in the United States (\url{https://usegalaxy.org/}), the European Union (\url{https://usegalaxy.eu/}), and Australia (\url{https://usegalaxy.org.au/}). 
         
@@ -263,9 +263,9 @@ The purpose of this thesis is an improvement of existing workflows in Galaxy to 
             \label{fig:intro:galaxy-effort}
         \end{figure}
         
-        The choice of bioinformatics tools for these four workflows is made based on the method of sequencing and the type of data obtained by the method. For paired-end reads, the BWA-MEM \cite{li2013,burrows} mapper is used to map to the SARS-CoV-2 sequence. Bowtie2 \cite{ultrafast,langmead2012} mapper is used for single-end read datasets sequenced with Illumina method, whereas minimap2 \cite{burrows,li2018} mapper is most appropriate for datasets sequenced by Oxford Nanopore since Oxford Nanopore sequencer generates very long reads with many errors. As for variant caller, LoFreq is used in all four workflows since it is known as a more ultra-sensitive variant caller for uncovering cell-population heterogeneity \cite{lofreq}.\\
+        The choice of bioinformatics tools for these four workflows is made based on the method of sequencing and the type of data obtained by the method. For paired-end reads, the BWA-MEM \cite{li2013,burrows} mapper is used to map to the SARS-CoV-2 sequence. Bowtie2 \cite{ultrafast,langmead2012} mapper is used for single-end read datasets sequenced with Illumina method, whereas minimap2 \cite{burrows,li2018} mapper is most appropriate for datasets sequenced by Oxford Nanopore since Oxford Nanopore sequencer generates very long reads with many errors. As for variant caller, LoFreq is used in all four workflows since it is known as a more ultra-sensitive variant caller for uncovering cell-population heterogeneity \cite{lofreq}.
 
-        \textbf{Bots for automated SARS-CoV-2 surveillance } \\
+        \paragraph{Bots for automated SARS-CoV-2 surveillance } 
         
         Additionally, Galaxy team has developed bots to assist in SARS-CoV-2 surveillance \cite{bots2022}, a viable tool for automating the analysis of a large number of SARS-CoV-2 sequences regularly. In essence, it is a set of automation scripts that can be integrated into any scheduling system with a daily throughput of around 1000 samples on a Galaxy instance. Galaxy bots allow to upload newly available data, start a variation analysis workflow, and follow up with downstream workflows for consensus building and reporting once the variation analysis is complete. It is possible to use bots for SARS-CoV-2 surveillance to track National Genome Surveillance projects, such as COG-UK, and reanalyze their data as it becomes available. These scripts are a decent automated sequence data analysis pipeline that works with two Galaxy SARS-CoV-2 surveillance workflows for datasets extracted with ARTIC protocol. 
         
